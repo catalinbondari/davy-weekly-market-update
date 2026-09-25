@@ -1,0 +1,1679 @@
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Davy Weekly Market Update</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Open+Sans:wght@300;400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+<style>
+:root{
+  /* Warm institutional dark. Gold is the accent; green and red are reserved
+     for direction of travel in data and never used as decoration. */
+  --ink:#100E0A;
+  --ink-2:#080705;
+  --panel:#181510;
+  --panel-2:#211C15;
+  --line:#332D22;
+  --bone:#F4F0E7;
+  --bone-2:#CAC2B0;
+  --muted:#8E8877;
+  --gold:#D2A63C;
+  --gold-hi:#F0D488;
+  /* The Davy crimson, taken from the official brandmark on davy.ie. */
+  --brand:#B90646;
+  --brand-hi:#E5427A;
+  --up:#3F9E72;
+  --down:#CC655B;
+  --accent:var(--gold);
+
+  --f-display:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-text:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+
+  --ground-h:17%;
+  --run-ms:1500;
+
+  /* One set of durations for the whole deck. Enter is slower than exit,
+     which is what makes stepping back feel immediate rather than sticky. */
+  --t-micro:200ms;
+  --t-reveal:550ms;
+  --t-enter:600ms;
+  --t-exit:400ms;
+
+  /* The bear's steel, used by its card, its rule and its mark. */
+  --bear:#9FB0C4;
+  --bear-dim:#6E7F93;
+  --rail-dim:#8C836B;
+  --tape-h:40px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--ink);color:var(--bone);
+  font-family:var(--f-text);overflow:hidden;-webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ── stage ─────────────────────────────────────────────── */
+.stage{position:fixed;inset:0;overflow:hidden;background:var(--ink);cursor:pointer;user-select:none}
+.worlds{position:absolute;inset:0;z-index:1}
+.world{position:absolute;inset:0;transition:opacity .6s ease}
+.world .sky{position:absolute;inset:0}
+.world .layer{position:absolute;inset:0;will-change:transform}
+.world .layer svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.world.is-out{filter:blur(1.4px)}
+
+.ground{
+  position:absolute;left:0;right:0;bottom:0;height:var(--ground-h);z-index:3;
+  background:linear-gradient(180deg,rgba(8,7,5,.45),var(--ink-2) 64%);
+  border-top:1px solid rgba(210,166,60,.28);
+}
+/* a flash along the ground line as the animal lands on a new day */
+.ground::before{
+  content:"";position:absolute;left:0;right:0;top:-1px;height:2px;
+  background:var(--gold-hi);opacity:0;pointer-events:none;
+}
+.stage.landed .ground::before{animation:landflash .75s ease-out both}
+@keyframes landflash{from{opacity:.9}to{opacity:0}}
+.ground::after{
+  content:"";position:absolute;left:-64px;right:-64px;top:-1px;height:2px;opacity:.35;
+  background:repeating-linear-gradient(90deg,rgba(210,166,60,.5) 0 26px,transparent 26px 64px);
+}
+.stage.is-running .ground::after{animation:tread .42s linear infinite}
+@keyframes tread{to{transform:translateX(-64px)}}
+
+/* The scrim is what keeps bone text readable over a bright gold sky. */
+.vignette{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(8,7,5,.86) 0%,rgba(8,7,5,.78) 34%,rgba(8,7,5,.62) 56%,rgba(8,7,5,.20) 74%,transparent 86%),
+    radial-gradient(135% 105% at 64% 46%,transparent 46%,rgba(8,7,5,.44) 100%),
+    linear-gradient(180deg,rgba(8,7,5,.60),transparent 16%);
+}
+.grain{
+  position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.045;
+  background-image:radial-gradient(rgba(244,240,231,.9) .6px,transparent .7px);
+  background-size:3px 3px;
+}
+
+/* ── masthead tape ─────────────────────────────────────── */
+.tape{
+  position:absolute;top:0;left:0;right:0;height:var(--tape-h);z-index:8;display:flex;align-items:stretch;
+  background:linear-gradient(180deg,rgba(8,7,5,.97),rgba(8,7,5,.82));
+  border-bottom:1px solid var(--line);overflow:hidden;
+}
+.brand{
+  flex:none;display:flex;align-items:center;gap:11px;padding:0 16px;
+  border-right:1px solid var(--line);
+}
+.brand .wordmark{display:flex;align-items:center;line-height:0}
+.brand .wordmark svg{display:block;width:26px;height:26px}
+.brand .product{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);line-height:1;padding-top:2px;
+}
+.tape-track{flex:1;overflow:hidden;position:relative}
+.tape-run{
+  position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
+  gap:32px;padding-left:32px;white-space:nowrap;animation:crawl 52s linear infinite;
+  font-family:var(--f-mono);font-size:clamp(11px,1.2vh,13px);
+}
+.stage.is-running .tape-run{animation-duration:14s}
+@keyframes crawl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tape-item{display:inline-flex;align-items:center;gap:8px;color:var(--bone-2);font-variant-numeric:tabular-nums}
+.tape-item b{font-weight:400;color:var(--muted);letter-spacing:.09em}
+.up{color:var(--up)}
+.down{color:var(--down)}
+.flat{color:var(--muted)}
+
+/* ── story column ──────────────────────────────────────── */
+.lower{
+  position:absolute;z-index:6;left:5.5vw;
+  top:clamp(84px,10vh,132px);
+  bottom:80px;
+  width:clamp(340px,46vw,720px);
+  overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;
+  /* Deliberately no width transition: the column is re-measured and scaled
+     to fit the moment a slide renders, and an animating width would be
+     measured mid-flight and produce the wrong scale. */
+  transition:opacity var(--t-exit) ease,transform var(--t-exit) ease;
+}
+.lower::-webkit-scrollbar{display:none}
+.lower.exit{opacity:0;transform:translateX(-44px)}
+.lower.enter{animation:colIn var(--t-enter) cubic-bezier(.2,.85,.25,1) both}
+@keyframes colIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+/* The inner column is scaled down a step at a time if a day's copy is
+   longer than the window is tall, so bullets can never be clipped
+   whatever the author writes or whatever screen it is presented on. */
+.lower .col{transform-origin:left top;transform:scale(var(--fit,1));width:calc(100% / var(--fit,1))}
+/* A chart stacked under four bullets makes the column far too tall, so a
+   chart slide spends horizontal space instead: header across the top,
+   bullets left, chart right, and the animal steps back to make room. */
+.stage.has-chart .lower{width:min(1100px,66vw)}
+.stage.is-wide   .lower{width:min(1240px,72vw)}
+.stage.has-chart .col{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);
+  column-gap:clamp(20px,3vw,46px);align-items:start;
+}
+.stage.has-chart .col > .eyebrow,
+.stage.has-chart .col > .dayname,
+.stage.has-chart .col > .daterow,
+.stage.has-chart .col > .headline{grid-column:1 / -1}
+.stage.has-chart .col > .points{grid-column:1}
+.stage.has-chart .col > .chartwrap{grid-column:2;margin-top:0}
+.stage.has-chart .col > .tiles{grid-column:1}
+.stage.has-chart .col > .charts{grid-column:2;margin-top:0}
+/* A hero chart is the point of its slide, so it takes the larger share. */
+.stage.is-wide .col{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)}
+
+.eyebrow{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:clamp(9px,1.7vh,16px);
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.2vh,12px);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:2px;
+  border:1px solid var(--line);background:rgba(24,21,16,.78);color:var(--bone-2);
+}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.dayname{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(38px,min(6.6vw,10.5vh),104px);line-height:.94;letter-spacing:-.015em;
+  margin:0 0 10px;color:var(--bone);text-wrap:balance;
+}
+.daterow{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  font-family:var(--f-mono);font-size:clamp(10.5px,1.3vh,13px);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  padding-bottom:clamp(11px,2vh,18px);margin-bottom:clamp(13px,2.2vh,22px);
+  border-bottom:1px solid var(--line);
+}
+.daterow .sep{color:var(--gold)}
+.headline{
+  font-family:var(--f-text);font-weight:300;
+  font-size:clamp(16px,min(1.9vw,2.9vh),30px);line-height:1.38;
+  margin:0 0 clamp(15px,2.6vh,26px);
+  color:var(--bone);text-wrap:balance;max-width:38ch;
+}
+.points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(10px,1.7vh,17px)}
+.points li{
+  display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  font-size:clamp(13px,min(1.05vw,1.95vh),19px);line-height:1.55;color:var(--bone-2);
+  font-weight:400;
+}
+.points li .tick{
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.2vh,12px);font-weight:600;letter-spacing:.06em;
+  color:var(--gold);padding-top:5px;min-width:3em;font-variant-numeric:tabular-nums;
+}
+
+/* one reveal mechanism for every kind of beat on a slide */
+.reveal{
+  opacity:0;transform:translateY(10px);filter:blur(5px);
+  transition:opacity var(--t-reveal) ease,
+              transform var(--t-reveal) cubic-bezier(.2,.7,.3,1),
+              filter var(--t-reveal) ease;
+}
+.reveal.shown{opacity:1;transform:none;filter:none}
+
+/* ── charts ────────────────────────────────────────────── */
+.chartwrap{margin-top:clamp(14px,2.4vh,24px)}
+.chartwrap .chart-root{width:100%}
+
+/* ── scorecard ─────────────────────────────────────────── */
+.score{display:flex;flex-direction:column;gap:clamp(8px,1.3vh,12px)}
+.score-row{
+  display:grid;grid-template-columns:9em 1fr 4.8em;gap:16px;align-items:center;
+  font-family:var(--f-mono);font-size:clamp(10.5px,1.35vh,14px);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i) * 70ms);
+}
+.reveal.shown .score-row{opacity:1;transform:none}
+.score-name{color:var(--bone-2);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score-bar{position:relative;height:13px;background:rgba(51,45,34,.55);border-radius:1px}
+.score-bar::before{content:"";position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:rgba(244,240,231,.3)}
+.score-fill{
+  position:absolute;top:0;bottom:0;border-radius:1px;width:0;
+  transition:width .8s cubic-bezier(.2,.8,.3,1);
+  transition-delay:calc(var(--i) * 70ms + 120ms);
+}
+.reveal.shown .score-fill{width:var(--w)}
+.score-val{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ── the animal ────────────────────────────────────────── */
+.beast{
+  position:absolute;z-index:7;bottom:calc(var(--ground-h) - 2.4%);left:69%;
+  width:min(29vw,330px);
+  filter:drop-shadow(0 20px 26px rgba(8,7,5,.85));
+  transition:width .5s ease,opacity .5s ease;
+}
+.stage.has-chart .beast{width:min(18vw,205px);left:82%;opacity:.6}
+.beast svg{display:block;width:100%;height:auto;overflow:visible}
+/* Travelling backwards through the week mirrors the animal. The brand plate
+   has to stay readable, so it counter-flips inside the mirrored group. */
+/* A 3D renderer mounts a canvas instead of an SVG. It draws its own
+   shadow and reflection, so the CSS drop-shadow comes off. */
+/* A supplied photograph stands on the ground line like the drawing does.
+   It is never mirrored — a real image of a bull has a lit side, and
+   flipping it would light it from the wrong direction. */
+.beast.is-img img,.faceoff.is-img img{display:block;width:100%;height:auto}
+.stage.is-running .beast.is-img{animation:imgrun .34s ease-in-out infinite}
+@keyframes imgrun{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  50%{transform:translateY(-11px) rotate(1.2deg)}
+}
+.beast.is3d{aspect-ratio:26/18;filter:none}
+.beast.is3d canvas{display:block;width:100%;height:100%}
+.faceoff.is3d{aspect-ratio:52/20}
+.faceoff.is3d canvas{display:block;width:100%;height:100%}
+.beast.flipped{transform:scaleX(-1)}
+.beast.flipped .brandflip{transform:scaleX(-1)}
+/* The body pitches about its own centre, not the corner of the drawing. */
+.beast .bob{transform-box:view-box;transform-origin:128px 118px;animation:idlebob 3.8s ease-in-out infinite}
+.stage.is-running .beast .bob{animation:gallop .36s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes idlebob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2.5px) rotate(-.35deg)}}
+/* Transverse gallop: impact and squash, gather, suspension with the nose
+   dipping, then reach. The pitch is what makes it read as an animal rather
+   than a drawing sliding sideways. */
+@keyframes gallop{
+  0%  {transform:translateY(0)     rotate(2.4deg)  scale(1.012,.982)}
+  24% {transform:translateY(-12px) rotate(-1.4deg) scale(1,1)}
+  50% {transform:translateY(-15px) rotate(-3.4deg) scale(.994,1.012)}
+  74% {transform:translateY(-4px)  rotate(.4deg)   scale(1,1)}
+  100%{transform:translateY(0)     rotate(2.4deg)  scale(1.012,.982)}
+}
+/* The head counter-bobs against the body, pivoting at the base of the neck. */
+.beast .head{transform-box:view-box;transform-origin:var(--ho)}
+.stage.is-running .beast .head{animation:headbob .36s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes headbob{0%,100%{transform:rotate(3deg)}46%{transform:rotate(-4.5deg)}}
+
+.leg{transform-box:view-box;transform-origin:var(--o);animation:idleleg 3.8s ease-in-out infinite}
+.stage.is-running .leg{animation:swing .36s cubic-bezier(.45,0,.55,1) infinite}
+/* hind pair strikes close together, then the fore pair - a transverse gallop */
+.stage.is-running .leg.p3{animation-delay:-.05s}
+.stage.is-running .leg.p4{animation-delay:-.19s}
+.stage.is-running .leg.p2{animation-delay:-.24s}
+@keyframes idleleg{0%,100%{transform:rotate(0)}50%{transform:rotate(1.2deg)}}
+@keyframes swing{
+  0%{transform:rotate(-30deg)}25%{transform:rotate(6deg)}
+  50%{transform:rotate(34deg)}75%{transform:rotate(4deg)}100%{transform:rotate(-30deg)}
+}
+.leg .knee{transform-box:view-box;transform-origin:var(--ko);animation:none}
+.stage.is-running .leg .knee{animation:knee .36s cubic-bezier(.45,0,.55,1) infinite}
+.stage.is-running .leg.p3 .knee{animation-delay:-.05s}
+.stage.is-running .leg.p4 .knee{animation-delay:-.19s}
+.stage.is-running .leg.p2 .knee{animation-delay:-.24s}
+@keyframes knee{
+  0%{transform:rotate(30deg)}25%{transform:rotate(2deg)}
+  50%{transform:rotate(-10deg)}75%{transform:rotate(22deg)}100%{transform:rotate(30deg)}
+}
+.tail{transform-box:view-box;transform-origin:var(--o);animation:swish 2.8s ease-in-out infinite}
+.stage.is-running .tail{animation:swish .4s ease-in-out infinite}
+@keyframes swish{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(16deg)}}
+
+.dust{position:absolute;z-index:6;bottom:calc(var(--ground-h) - 1.4%);left:0;right:0;height:90px;pointer-events:none;opacity:0;transition:opacity .3s}
+.stage.is-running .dust{opacity:1}
+.puff{
+  position:absolute;bottom:0;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%,rgba(240,212,136,.26),rgba(240,212,136,0) 70%);
+  animation:puff .75s linear infinite;
+}
+@keyframes puff{
+  0%{transform:translate(0,0) scale(.35);opacity:.85}
+  100%{transform:translate(-200px,-46px) scale(1.8);opacity:0}
+}
+.speedlines{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;transition:opacity .2s}
+.stage.is-running .speedlines{opacity:1}
+.speedlines i{
+  position:absolute;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,rgba(240,212,136,.42));
+  animation:zip .55s linear infinite;
+}
+@keyframes zip{from{transform:translateX(30vw);opacity:0}20%{opacity:.9}to{transform:translateX(-75vw);opacity:0}}
+
+/* ── week rail ─────────────────────────────────────────── */
+.rail{
+  position:absolute;left:0;right:0;bottom:0;z-index:9;display:flex;
+  background:linear-gradient(180deg,rgba(8,7,5,.06),rgba(8,7,5,.95));
+  border-top:1px solid var(--line);font-family:var(--f-mono);
+}
+.stop{
+  flex:1;position:relative;padding:14px 8px;min-height:44px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(9px,1.1vh,12px);letter-spacing:.16em;text-transform:uppercase;
+  color:#6E6754;text-align:center;transition:color .3s,background .3s;
+  border-right:1px solid rgba(51,45,34,.65);
+}
+.stop:last-child{border-right:0}
+.stop .short{display:none}
+.stop::before{
+  content:"";position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--gold);
+  transform:scaleX(0);transform-origin:0 50%;transition:transform .5s ease;
+}
+.stop.done{color:var(--bone-2)}
+.stop.done::before{transform:scaleX(1);opacity:.3}
+.stop.here{color:var(--ink-2);background:var(--gold);font-weight:600}
+.stop.here::before{transform:scaleX(1)}
+.stop:hover{color:var(--bone)}
+.stop.here:hover{color:var(--ink-2)}
+
+/* ── corner furniture ──────────────────────────────────── */
+.byline,.counter,.flagline,.hint{
+  position:absolute;z-index:9;font-family:var(--f-mono);
+  font-size:clamp(8.5px,1.05vh,11px);letter-spacing:.15em;text-transform:uppercase;
+}
+.byline{left:5.5vw;bottom:56px;color:var(--muted)}
+.byline b{color:var(--bone-2);font-weight:500}
+.counter{right:20px;bottom:56px;color:var(--muted);font-variant-numeric:tabular-nums}
+.counter b{color:var(--gold);font-weight:600}
+.flagline{left:20px;top:calc(var(--tape-h) + 14px);display:flex;gap:8px;align-items:center}
+.flagline .demo{background:var(--gold);color:var(--ink-2);padding:4px 8px;border-radius:2px;font-weight:600}
+.flagline .stamp{color:var(--muted)}
+.hint{right:20px;top:calc(var(--tape-h) + 14px);display:flex;align-items:center;gap:8px;color:var(--muted);transition:opacity .6s}
+.hint kbd{border:1px solid #6E6754;border-radius:2px;padding:2px 6px;background:rgba(24,21,16,.85);color:var(--bone-2);font-family:inherit;font-size:9.5px}
+.stage.is-running .hint{opacity:0}
+
+/* ── start screen ──────────────────────────────────────── */
+.gate{
+  position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:clamp(16px,2.6vh,34px);
+  padding:5vh 5vw;text-align:center;
+  background:
+    radial-gradient(90% 70% at 50% 42%,rgba(19,16,12,.96),rgba(8,7,5,.99)),
+    var(--ink-2);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.gate.gone{
+  opacity:0;transform:scale(1.05);pointer-events:none;visibility:hidden;
+  transition:opacity .6s ease,transform .6s ease,visibility 0s linear .6s;
+}
+.gate.intro > *{animation:gateIn .8s cubic-bezier(.2,.85,.25,1) both}
+.gate.intro > :nth-child(1){animation-delay:.05s}
+.gate.intro > :nth-child(2){animation-delay:.15s}
+.gate.intro > :nth-child(3){animation-delay:.25s}
+.gate.intro > :nth-child(4){animation-delay:.2s}
+.gate.intro > :nth-child(5){animation-delay:.55s}
+.gate.intro > :nth-child(6){animation-delay:.7s}
+.gate.intro > :nth-child(7){animation-delay:.85s}
+@keyframes gateIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* the two animals close on each other from opposite sides */
+.gate.intro .faceoff .fo-l{animation:foL 1.4s cubic-bezier(.2,.85,.2,1) .35s both}
+.gate.intro .faceoff .fo-r{animation:foR 1.4s cubic-bezier(.2,.85,.2,1) .35s both}
+@keyframes foL{from{opacity:0;transform:translateX(-44px)}to{opacity:1;transform:none}}
+@keyframes foR{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:none}}
+.faceoff .fo-sun{animation:sunbreathe 5.5s ease-in-out infinite}
+@keyframes sunbreathe{0%,100%{opacity:.82}50%{opacity:1}}
+.gate-brand{display:flex;flex-direction:column;align-items:center;gap:5px}
+.gate-brand .wordmark{display:flex;line-height:0}
+.gate-brand .wordmark svg{display:block;width:clamp(56px,6.4vw,78px);height:auto}
+.gate-brand .rule{width:44px;height:2px;background:var(--brand)}
+.gate-kicker{font-family:var(--f-mono);font-size:clamp(9px,1.2vh,11.5px);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.gate-title{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(34px,5.4vw,76px);line-height:1.02;letter-spacing:-.02em;
+  margin:0;color:var(--bone);text-wrap:balance;
+}
+.gate-sub{
+  font-family:var(--f-text);font-weight:300;color:var(--bone-2);
+  font-size:clamp(14px,1.35vw,19px);max-width:50ch;margin:0;line-height:1.55;
+}
+.faceoff{width:min(760px,72vw);max-height:34vh}
+.faceoff svg{display:block;width:100%;height:auto;overflow:visible}
+
+.picks{display:flex;gap:clamp(12px,2vw,22px);flex-wrap:wrap;justify-content:center}
+.pick{
+  min-width:clamp(190px,21vw,260px);padding:14px 22px 13px;border-radius:3px;
+  border:1px solid var(--line);background:linear-gradient(180deg,rgba(33,28,21,.9),rgba(8,7,5,.6));
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),border-color .3s,box-shadow .3s;
+}
+.pick .pick-name{
+  font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.1vw,27px);
+  line-height:1.1;letter-spacing:.01em;
+}
+.pick .pick-note{font-family:var(--f-mono);font-size:clamp(9px,1.1vh,10.5px);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pick.bull .pick-name{color:var(--gold-hi)}
+.pick.bear .pick-name{color:var(--bear)}
+.pick.bull:hover,.pick.bull:focus-visible{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 22px 44px -24px var(--gold)}
+.pick.bear:hover,.pick.bear:focus-visible{border-color:var(--bear);box-shadow:0 0 0 1px var(--bear),0 22px 44px -24px var(--bear-dim)}
+.pick:hover,.pick:focus-visible{transform:translateY(-2px)}
+
+.gate-foot{
+  display:flex;flex-direction:column;gap:6px;align-items:center;
+  font-family:var(--f-mono);font-size:clamp(8.5px,1.05vh,10.5px);
+  letter-spacing:.15em;text-transform:uppercase;color:#6E7686;line-height:1.7;
+}
+.gate-foot .warn{color:var(--gold)}
+.gate-foot b{color:var(--bone-2);font-weight:500}
+
+@media (max-height:560px){
+  .faceoff{display:none}
+  .gate{gap:clamp(10px,1.8vh,18px)}
+}
+@media (max-width:600px){
+  .brand .product{display:none}
+  /* the clock owns the top-right corner on a phone, so the build stamp
+     steps aside rather than running underneath it */
+  .flagline .stamp{display:none}
+}
+@media (max-width:900px){
+  :root{--ground-h:14%}
+  .lower{left:6vw;right:6vw;width:auto;top:calc(var(--tape-h) + 40px);bottom:56px;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .lower::-webkit-scrollbar{display:none}
+  .stop .full{display:none}
+  .stop .short{display:inline}
+  .stop{padding:14px 2px;letter-spacing:.06em}
+  .stage.is-wide .lower,.stage.has-chart .lower{width:auto}
+  .stage.has-chart .col{display:block}
+  .stage.has-chart .col > .chartwrap{margin-top:clamp(14px,2.4vh,24px)}
+  .beast{width:46vw;left:auto;right:-3vw;opacity:.45}
+  .stage.is-wide .beast,.stage.has-chart .beast{width:38vw;left:auto;right:-4vw;opacity:.35}
+  .headline{max-width:none}
+  .vignette{background:linear-gradient(180deg,rgba(8,7,5,.78),rgba(8,7,5,.35) 26%,rgba(8,7,5,.94) 76%)}
+  .hint,.byline{display:none}
+  .counter{right:14px;bottom:52px}
+  .faceoff{width:92vw;max-height:26vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .tape-run,.leg,.tail,.bob,.puff,.speedlines i,.ground::after,.leg .knee,.beast .head,
+  .gate.intro > *,.faceoff .fo-l,.faceoff .fo-r,.faceoff .fo-sun,.lower.enter,.ground::before{animation:none !important}
+  .world,.reveal,.score-row,.score-fill,.lower,.beast{transition-duration:.01ms !important;transition-delay:0s !important}
+  .beast.is-img,.stage.is-running .beast.is-img{animation:none !important}
+  .reveal{filter:none}
+}
+/* ── the clock ─────────────────────────────────────────── */
+/* The format is a five-minute talk, so the deck keeps the five minutes
+   itself. Three readings, in the order a presenter needs them: how long
+   is left, whether this slide is running late, and a way to stop it. */
+.deckside{
+  position:absolute;right:20px;top:calc(var(--tape-h) + 14px);z-index:11;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+.hint{position:static;right:auto;top:auto}
+.timer{
+  display:grid;grid-template-columns:auto auto;
+  grid-template-areas:"clock ctl" "bar bar";
+  align-items:center;gap:7px 14px;min-width:196px;
+  padding:9px 8px 9px 13px;border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,rgba(33,28,21,.94),rgba(8,7,5,.9));
+  box-shadow:0 18px 40px -28px #000;
+  transition:border-color .4s ease,box-shadow .4s ease,opacity .4s ease;
+}
+.timer[data-state="idle"]{opacity:.6}
+.t-clock{grid-area:clock;display:flex;flex-direction:column;gap:2px;line-height:1}
+.t-time{
+  font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600;
+  font-size:clamp(20px,2.3vh,26px);letter-spacing:.01em;color:var(--bone);
+  transition:color .4s ease;
+}
+.t-pace{
+  font-family:var(--f-mono);font-size:clamp(8.5px,1.02vh,10px);letter-spacing:.16em;
+  text-transform:uppercase;color:#9A9280;white-space:nowrap;transition:color .4s ease;
+}
+.t-ctl{grid-area:ctl;display:flex;gap:2px}
+/* 44px of hit area behind a 15px icon: the target is the rule, the icon
+   is the picture. Never an emoji - it would change shape per platform. */
+.t-btn{
+  width:44px;height:44px;display:grid;place-items:center;padding:0;
+  border:0;border-radius:3px;background:transparent;color:var(--bone-2);
+  cursor:pointer;transition:background .2s ease,color .2s ease;
+}
+.t-btn svg{
+  width:15px;height:15px;display:block;fill:none;stroke:currentColor;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.t-btn:hover{background:rgba(210,166,60,.16);color:var(--gold-hi)}
+.t-btn:active{background:rgba(210,166,60,.26)}
+.t-bar{grid-area:bar;position:relative;height:3px;border-radius:2px;background:rgba(244,240,231,.14)}
+.t-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0;border-radius:2px;
+  background:var(--gold);transition:width .3s linear,background .4s ease;
+}
+/* where the clock should be if the talk is on schedule */
+.t-mark{position:absolute;top:-4px;bottom:-4px;width:1px;background:var(--bone-2);opacity:.8;transition:left .5s ease}
+.timer[data-state="warn"] .t-time{color:var(--gold-hi)}
+.timer[data-state="warn"] .t-fill{background:var(--gold-hi)}
+.timer[data-state="alarm"] .t-time,.timer[data-state="over"] .t-time{color:#F0907E}
+.timer[data-state="alarm"] .t-fill,.timer[data-state="over"] .t-fill{background:var(--down)}
+.timer[data-state="over"]{border-color:var(--down)}
+.timer[data-state="paused"]{border-color:var(--bone-2)}
+.timer[data-state="paused"] .t-time{color:var(--bone-2)}
+.t-pace.behind{color:#EE9384}
+.t-pace.ahead{color:#6FC79C}
+/* Stopping the clock stops everything else that moves by itself - the
+   ticker, the gallop, the dust. One control, one stillness. */
+.stage.t-hold .tape-run,.stage.t-hold .bob,.stage.t-hold .leg,.stage.t-hold .knee,
+.stage.t-hold .tail,.stage.t-hold .head,.stage.t-hold .puff,
+.stage.t-hold .speedlines i{animation-play-state:paused}
+.tape-track:hover .tape-run,.tape-track:focus-within .tape-run{animation-play-state:paused}
+
+/* ── whose day it was ──────────────────────────────────── */
+/* The animal on screen is the day's verdict. The slide also says it in
+   words, because colour and a drawing must never be the only carrier. */
+.mood{
+  display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 7px;
+  border-radius:2px;border:1px solid;white-space:nowrap;
+}
+.mood svg{width:15px;height:15px;display:block;fill:currentColor;flex:none}
+.mood.bull{color:#F0D488;border-color:rgba(240,212,136,.5);background:rgba(210,166,60,.14)}
+.mood.bear{color:#BFCCDC;border-color:rgba(191,204,220,.45);background:rgba(120,140,165,.16)}
+/* Days later in the week are built but not yet filled. Saying so on the
+   slide is the whole point: a placeholder that looks like a print is how a
+   presenter ends up quoting a number that was never real. */
+.pendchip{
+  display:inline-flex;align-items:center;gap:7px;padding:3px 10px;border-radius:2px;
+  border:1px dashed rgba(210,166,60,.6);background:rgba(210,166,60,.08);color:var(--gold-hi);
+  white-space:nowrap;
+}
+.pendchip .pdot{width:6px;height:6px;border-radius:50%;border:1px solid currentColor;flex:none}
+.why.pending{border-color:rgba(210,166,60,.55)}
+.why.pending .why-k{color:var(--gold)}
+.stop.pend::after{
+  content:"";position:absolute;left:50%;bottom:7px;width:16px;height:0;
+  transform:translateX(-50%);border-top:1px dashed currentColor;opacity:.7;
+}
+.why{
+  display:block;margin:0 0 clamp(14px,2.4vh,24px);padding-left:12px;
+  border-left:2px solid;max-width:54ch;
+  font-family:var(--f-text);font-weight:300;
+  font-size:clamp(12px,min(.95vw,1.6vh),15.5px);line-height:1.5;color:var(--bone-2);
+}
+.why.bull{border-color:rgba(210,166,60,.75)}
+.why.bear{border-color:rgba(159,176,196,.7)}
+.why .why-k{
+  font-family:var(--f-mono);font-size:.8em;letter-spacing:.16em;text-transform:uppercase;
+  white-space:nowrap;margin-right:9px;
+}
+.why.bull .why-k{color:var(--gold)}
+.why.bear .why-k{color:#AFC0D2}
+.stage.has-chart .col > .why{grid-column:1 / -1}
+
+/* ── the settlement ────────────────────────────────────── */
+.verdict{
+  display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start;
+  margin-top:clamp(14px,2.4vh,24px);padding:clamp(12px,1.8vh,18px) clamp(14px,2vw,20px);
+  border:1px solid var(--line);border-left-width:3px;border-radius:2px;
+  background:rgba(24,21,16,.88);
+}
+.verdict.bull{border-left-color:var(--gold)}
+.verdict.bear{border-left-color:var(--bear)}
+.verdict svg{width:26px;height:26px;grid-row:1 / span 2;display:block;fill:currentColor}
+.verdict.bull svg{color:#F0D488}
+.verdict.bear svg{color:#BFCCDC}
+.verdict p{margin:0;font-size:clamp(12.5px,1.55vh,16px);line-height:1.5;color:var(--bone)}
+.verdict p b{font-weight:600;color:var(--bone)}
+.verdict .verdict-time{
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.15vh,11.5px);
+  letter-spacing:.14em;text-transform:uppercase;color:#9A9280;
+}
+
+/* ── numbers and charts ────────────────────────────────── */
+/* A day is read from the back of a room: three numbers and a picture.
+   Everything else is said, not shown. */
+.tiles{display:flex;flex-direction:column;gap:clamp(10px,1.6vh,16px)}
+.tile{
+  padding:clamp(11px,1.7vh,17px) clamp(14px,1.4vw,20px);
+  border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:2px;
+  background:rgba(24,21,16,.82);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i) * 90ms);
+}
+.reveal.shown .tile{opacity:1;transform:none}
+.tile.up{border-left-color:var(--up)}
+.tile.down{border-left-color:var(--down)}
+.tile-k{
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.15vh,11.5px);letter-spacing:.16em;
+  text-transform:uppercase;color:#9A9280;margin-bottom:6px;
+}
+.tile-v{
+  font-family:var(--f-display);font-weight:700;line-height:1;color:var(--bone);
+  font-size:clamp(26px,min(3.1vw,5vh),52px);font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+}
+.tile-c{font-family:var(--f-mono);font-size:clamp(11px,1.45vh,14.5px);font-weight:600;margin-top:7px;font-variant-numeric:tabular-nums}
+.tile-n{font-size:clamp(11px,1.35vh,13.5px);line-height:1.45;color:var(--bone-2);margin-top:6px}
+.charts{display:flex;flex-direction:column;gap:clamp(12px,2vh,20px)}
+.charts > .chartwrap{margin-top:0}
+
+/* Chart-first days carry a lighter header. At 1280x720 the full-size title
+   block took half the slide before a single number appeared, and two
+   stacked charts then ran 130px off the bottom. */
+.stage.is-visual .dayname{font-size:clamp(34px,min(4.8vw,7.6vh),80px);margin-bottom:6px}
+.stage.is-wide .col > .eyebrow,
+.stage.is-wide .col > .dayname,
+.stage.is-wide .col > .daterow{max-width:calc((94.5vw - 5.5vw - 250px) / var(--fit,1))}
+.stage.is-visual .daterow{padding-bottom:clamp(7px,1.2vh,12px);margin-bottom:clamp(9px,1.5vh,14px)}
+.stage.is-visual .headline{
+  font-size:clamp(15px,min(1.45vw,2.5vh),24px);max-width:64ch;
+  margin-bottom:clamp(9px,1.5vh,14px);
+}
+.stage.is-visual .why{margin-bottom:clamp(12px,2vh,20px)}
+.stage.is-visual .tile{padding:clamp(9px,1.4vh,14px) clamp(12px,1.2vw,18px)}
+.stage.is-visual .tile-v{font-size:clamp(22px,min(2.5vw,4.2vh),42px)}
+/* Two charts: the tiles run across the top as one row and the charts sit
+   side by side underneath, instead of three things stacked in a column. */
+.stage.two-charts .col > .tiles{grid-column:1 / -1;flex-direction:row}
+.stage.two-charts .col > .tiles .tile{flex:1 1 0;min-width:0}
+.stage.two-charts .col > .charts{
+  grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(14px,2vw,28px);margin-top:clamp(12px,2vh,20px);
+}
+@media (max-width:900px){
+  /* tiles pair up two-by-two on a phone, which saves a whole tile's height */
+  .stage.is-visual .col > .tiles{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .stage.two-charts .col > .charts{display:flex;flex-direction:column}
+}
+
+/* ── presenter notes ───────────────────────────────────── */
+/* The script, on the presenter's screen only when asked for. Off by default,
+   because a deck mirrored to a projector would otherwise show it to the room. */
+.notes{
+  position:absolute;left:0;right:0;bottom:48px;z-index:12;display:none;
+  max-height:38vh;overflow-y:auto;padding:16px 5.5vw 18px;
+  background:linear-gradient(180deg,rgba(8,7,5,.94),rgba(8,7,5,.985));
+  border-top:1px solid var(--gold);
+}
+.stage.show-notes .notes{display:block}
+.notes .notes-k{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;display:flex;gap:14px;align-items:baseline;
+}
+.notes .notes-k span{color:var(--muted)}
+.notes p{
+  margin:0 0 10px;max-width:92ch;font-family:var(--f-text);font-weight:400;
+  font-size:clamp(14px,1.9vh,18px);line-height:1.6;color:var(--bone);
+}
+#tNotes[aria-pressed="true"]{background:rgba(210,166,60,.22);color:var(--gold-hi)}
+
+/* ── questions ─────────────────────────────────────────── */
+/* The biggest type in the deck, because it is the one line the back row
+   must be able to read without trying. */
+.qa-title{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(60px,min(10.5vw,17vh),176px);line-height:.9;letter-spacing:-.025em;
+  margin:0 0 clamp(8px,1.4vh,16px);color:var(--bone);
+}
+.qa-thanks{
+  font-family:var(--f-text);font-weight:300;margin:0 0 clamp(20px,3.4vh,36px);
+  font-size:clamp(18px,min(2.1vw,3.3vh),32px);color:var(--bone-2);
+}
+.qa-asks{margin:0 0 clamp(20px,3.4vh,36px);max-width:52ch}
+.qa-k{
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.2vh,12px);letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:12px;
+}
+.qa-asks ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.qa-asks li{
+  padding-left:14px;border-left:2px solid rgba(210,166,60,.6);color:var(--bone-2);
+  font-size:clamp(13px,min(1.1vw,2vh),19px);line-height:1.5;
+}
+.qa-by{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--f-mono);font-size:clamp(9.5px,1.15vh,11.5px);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);line-height:1.7;
+}
+.qa-by svg{flex:none;display:block}
+.qa-by b{color:var(--bone);font-weight:500}
+/* the questions stop in the rail reads as the finish line, not another day */
+.stop:last-child.here{background:var(--brand);color:#fff}
+
+/* ── reach and readability ─────────────────────────────── */
+/* Every control says what it is when tabbed to, and no control is
+   smaller than a fingertip. */
+.stop:focus-visible,.pick:focus-visible,.t-btn:focus-visible,.skip:focus-visible{
+  outline:2px solid var(--gold-hi);outline-offset:2px;
+}
+.stop{color:var(--rail-dim)}
+/* gold on gold is no ring at all */
+.stop.here:focus-visible{outline-color:var(--ink-2);outline-offset:-4px}
+.gate-foot{color:#949CAE}
+.hint kbd{color:var(--bone)}
+.sr{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
+/* A keyboard user lands here first: the deck is one big click target, so
+   there has to be a named way in that is not "click the background". */
+.skip{
+  position:absolute;left:50%;top:10px;transform:translate(-50%,-140%);z-index:40;
+  padding:10px 16px;border:1px solid var(--gold);border-radius:2px;
+  background:var(--ink-2);color:var(--bone);cursor:pointer;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  transition:transform .25s ease;
+}
+.skip:focus-visible{transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  /* Top-right on a phone is where the eyebrow and the mood chip live, so
+     the clock moves down out of the reading area and the slide count moves
+     across to the corner the byline has vacated. Both keep full-size hit
+     targets down there, which a bar-height dock could not. */
+  .deckside{top:auto;bottom:64px;right:12px;gap:0}
+  .counter{left:14px;right:auto;bottom:70px}
+  .lower{bottom:130px}
+  .timer{min-width:0;gap:0 6px;padding:7px 4px 7px 12px;grid-template-areas:"clock ctl"}
+  .t-pace,.t-bar{display:none}
+  .why{max-width:none}
+  .verdict{grid-template-columns:auto 1fr}
+}
+@media (max-height:560px){
+  .timer{padding:6px 6px 7px 10px;min-width:170px}
+  .t-time{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-fill,.t-mark,.skip{transition-duration:.01ms !important}
+}
+
+</style>
+
+<button class="skip" id="skip" type="button">Next beat</button>
+<p class="sr" id="say" role="status" aria-live="polite"></p>
+<div class="stage" id="stage">
+  <div class="worlds" id="worlds"></div>
+  <div class="ground"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+  <div class="speedlines" id="speedlines"></div>
+  <div class="dust" id="dust"></div>
+  <div class="beast" id="beast" aria-hidden="true"></div>
+  <div class="lower" id="lower" role="region" aria-label="Slide content"></div>
+
+  <div class="tape">
+    <div class="brand">
+      <span class="wordmark" id="brandWord"></span>
+      <span class="product" id="brandProduct">Weekly Market Update</span>
+    </div>
+    <div class="tape-track"><div class="tape-run" id="tapeRun"></div></div>
+  </div>
+
+  <div class="flagline"><span class="demo" id="demoChip">Demo copy</span><span class="stamp" id="stamp"></span></div>
+  <div class="deckside">
+    <div class="timer" id="timer" data-state="idle" role="group" aria-label="Presentation timer">
+      <div class="t-clock">
+        <span class="t-time" id="tTime" role="timer" aria-live="off">05:00</span>
+        <span class="t-pace" id="tPace">Five minutes</span>
+      </div>
+      <div class="t-ctl">
+        <button class="t-btn" id="tToggle" type="button" title="Pause the clock (P)" aria-label="Pause the clock">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+        </button>
+        <button class="t-btn" id="tNotes" type="button" title="Show your script (N)" aria-label="Show your script" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h4"/></svg>
+        </button>
+        <button class="t-btn" id="tReset" type="button" title="Reset the clock to five minutes (0)" aria-label="Reset the clock to five minutes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>
+        </button>
+      </div>
+      <div class="t-bar"><span class="t-fill" id="tFill"></span><span class="t-mark" id="tMark"></span></div>
+    </div>
+    <div class="hint" id="hint"></div>
+  </div>
+  <div class="byline" id="byline"></div>
+  <div class="counter" id="counter"></div>
+  <aside class="notes" id="notes" aria-label="Presenter script"></aside>
+  <div class="rail" id="rail"></div>
+
+  <div class="gate" id="gate">
+    <div class="gate-brand">
+      <span class="wordmark" id="gateMark"></span>
+      <span class="rule"></span>
+    </div>
+    <div class="gate-kicker" id="gateKicker"></div>
+    <h1 class="gate-title">Who runs the week?</h1>
+    <div class="faceoff" id="faceoff"></div>
+    <p class="gate-sub">Call the week before we start. Each slide is then carried by the animal that actually won it &mdash; and your call is settled at the close.</p>
+    <div class="picks">
+      <button class="pick bull" data-kind="bull">
+        <span class="pick-name">Bull</span>
+        <span class="pick-note">Risk on &middot; you say it closes higher</span>
+      </button>
+      <button class="pick bear" data-kind="bear">
+        <span class="pick-name">Bear</span>
+        <span class="pick-note">Risk off &middot; you say it closes lower</span>
+      </button>
+    </div>
+    <div class="gate-foot">
+      <span id="gateNote"></span>
+      <span>Presentation by <b>Catalin Bondari</b></span>
+    </div>
+  </div>
+</div>
+
+<script>
+<!--INJECT-->
+
+/* ══════════════════════════════════════════════════════════
+   DAVY — WEEKLY MARKET UPDATE
+   Data lives in the WEEK block above. Everything below drives
+   the camera, the animal, the charts and the reveals.
+   ══════════════════════════════════════════════════════════ */
+
+/* The presenter comes from the week's data, so a different presenter is a
+   one-line change in week.json rather than an edit to this file. */
+const BRAND  = { name:'Davy', product:'Weekly Market Update',
+                 by: (typeof WEEK_META === 'object' && WEEK_META.presenter) || 'Catalin Bondari' };
+
+const $  = (s) => document.querySelector(s);
+const stage   = $('#stage');
+const worlds  = $('#worlds');
+const lower   = $('#lower');
+const beastEl = $('#beast');
+const railEl  = $('#rail');
+const tapeRun = $('#tapeRun');
+const gate    = $('#gate');
+const hint    = $('#hint');
+
+const RUN = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--run-ms')) || 1500;
+const MQ_REDUCED = matchMedia('(prefers-reduced-motion: reduce)');
+let REDUCED = MQ_REDUCED.matches;
+/* Someone who turns motion off mid-presentation means it. */
+if(MQ_REDUCED.addEventListener) MQ_REDUCED.addEventListener('change', e => { REDUCED = e.matches; });
+
+/* Optional modules — the deck still runs if a drawing or the chart
+   library is absent, so a half-built asset can never blank the screen. */
+const HAS_CHARTS   = typeof chartSVG === 'function';
+const HAS_FACEOFF  = typeof faceoffSVG === 'function';
+/* A 3D renderer is used when one is present and actually initialises;
+   the SVG drawings stay as the fallback for anything without WebGL. */
+const HAS_3D       = typeof mountBeast === 'function';
+/* Supplied artwork wins over everything: a real image of a bull beats any
+   drawing of one. Falls straight through to 3D, then to the SVG. */
+const ART = (typeof BEAST_ART === 'object' && BEAST_ART) ? BEAST_ART : {};
+const artFor = (k) => (typeof ART[k] === 'string' && ART[k].length > 32) ? ART[k] : null;
+const HAS_3D_FACE  = typeof mountFaceoff === 'function';
+let beast3d = null, face3d = null;
+
+/* kind is the animal currently on screen and changes with the story;
+   call is the presenter's verdict on the week, made at the gate and
+   settled on the scorecard. */
+const S = { i:0, r:0, kind:null, call:null, busy:false, started:false, world:null };
+
+/* The questions page. It is added here rather than written into the week's
+   data because that data is rewritten every week - by hand or by a job - and
+   a talk that forgets to hand over to the room is a worse talk. CONTENT is
+   the number of real days, which is what the five minutes is shared across;
+   the questions page is time the room owns, not the presenter. */
+const CONTENT = WEEK.filter(d => d.kind !== 'questions').length;
+if(!WEEK.some(d => d.kind === 'questions')){
+  const last = WEEK[CONTENT - 1] || {};
+  WEEK.push({
+    key: 'questions', kind: 'questions', label: 'Q&A', rail: 'Questions',
+    region: last.region || 'global', date: last.date || '',
+    headline: 'Questions?', tape: last.tape || []
+  });
+}
+
+function setHint(label, keys = true){
+  hint.innerHTML = `<span>${label}</span>` + (keys ? '<kbd>&rarr;</kbd><kbd>space</kbd>' : '');
+}
+
+/* ── scenery ─────────────────────────────────────────── */
+function makeWorld(region){
+  const el = document.createElement('div');
+  el.className = 'world';
+  el.innerHTML = sceneHTML(SCENES[region] ? region : 'global');
+  return el;
+}
+function panLayers(world, from, to, ms){
+  world.querySelectorAll('.layer').forEach(l => {
+    const d = parseFloat(getComputedStyle(l).getPropertyValue('--depth')) || 1;
+    l.style.transition = 'none';
+    l.style.transform  = `translateX(${(from * d * 100).toFixed(2)}vw)`;
+    void l.offsetWidth;
+    l.style.transition = `transform ${ms}ms cubic-bezier(.42,0,.28,1)`;
+    l.style.transform  = `translateX(${(to * d * 100).toFixed(2)}vw)`;
+  });
+}
+
+/* ── motion furniture ────────────────────────────────── */
+function seedDust(){
+  const d = $('#dust'); d.innerHTML = '';
+  for(let i=0;i<9;i++){
+    const p = document.createElement('span');
+    p.className = 'puff';
+    const size = 16 + (i%4)*11;
+    p.style.cssText = `left:${58 + i*2.4}%;width:${size}px;height:${size}px;` +
+                      `animation-delay:${(i*0.085).toFixed(3)}s;animation-duration:${(0.62+(i%3)*0.12).toFixed(2)}s`;
+    d.appendChild(p);
+  }
+}
+function seedSpeedlines(){
+  const s = $('#speedlines'); s.innerHTML = '';
+  for(let i=0;i<14;i++){
+    const l = document.createElement('i');
+    l.style.cssText = `top:${8 + (i*6.1)%74}%;right:0;width:${8+(i%5)*7}vw;` +
+                      `animation-delay:${(i*0.07).toFixed(2)}s;opacity:${0.25+(i%4)*0.18}`;
+    s.appendChild(l);
+  }
+}
+
+/* ── the tape ────────────────────────────────────────── */
+function dirClass(v){
+  const s = String(v).trim();
+  if(s.startsWith('+')) return 'up';
+  if(s.startsWith('-') || s.startsWith('−')) return 'down';
+  return 'flat';
+}
+function setTape(items){
+  const one = (items||[]).map(q =>
+    `<span class="tape-item"><b>${q.name}</b><span class="${dirClass(q.chg)}">${q.chg}</span></span>`
+  ).join('');
+  tapeRun.innerHTML = one + one;
+}
+
+/* ── the rail ────────────────────────────────────────── */
+/* Seven full day names do not fit a phone, and the last stop was falling
+   off the end where it could never be tapped. */
+function shortLabel(label){
+  const t = String(label).replace(/^The\s+/i,'');
+  if(/^week/i.test(t)) return 'Wknd';
+  return t.length > 5 ? t.slice(0,3) : t;
+}
+function buildRail(){
+  railEl.innerHTML = '';
+  WEEK.forEach((d,idx) => {
+    const b = document.createElement('button');
+    b.className = 'stop';
+    b.innerHTML = `<span class="full">${d.rail || d.label}</span>` +
+                  `<span class="short">${d.short || shortLabel(d.label)}</span>`;
+    if(d.state === 'pending') b.classList.add('pend');
+    b.setAttribute('aria-label', d.state === 'pending'
+      ? `Go to ${d.label}, figures still to come`
+      : `Go to ${d.label}`);
+    b.addEventListener('click', e => { e.stopPropagation(); if(idx !== S.i) goTo(idx); });
+    railEl.appendChild(b);
+  });
+}
+function paintRail(){
+  [...railEl.children].forEach((el,idx) => {
+    el.classList.toggle('here', idx === S.i);
+    el.classList.toggle('done', idx < S.i);
+    el.setAttribute('aria-current', idx === S.i ? 'step' : 'false');
+  });
+}
+
+
+/* ── whose day it is ─────────────────────────────────
+   The animal is not decoration. Each day is carried by the animal that
+   won it: fixed income sold off, the bear runs; the AI complex rips, the
+   bull runs. An author pins a day with mood:'bull' | 'bear'; anything
+   left unpinned is read off that day's own tape, so a week spliced in by
+   a machine still gets the right animal.
+
+   Percentage moves count. Basis-point moves sit it out, because a yield
+   is not directional on its own - a 5bp fall is a rally in bonds and a
+   growth scare at the same time, and guessing which is worse than
+   abstaining. Volatility is inverted: a higher VIX is not a better day. */
+const MOOD_INVERT = /\b(vix|vstoxx|v2x|move)\b/i;
+
+function tapeScore(items){
+  let sum = 0, n = 0;
+  (items || []).forEach(q => {
+    const m = String(q.chg).replace(/[−–]/g, '-').match(/^\s*([+-]?\d+(?:\.\d+)?)\s*%/);
+    if(!m) return;
+    let v = parseFloat(m[1]);
+    if(MOOD_INVERT.test(q.name)) v = -v;
+    sum += v; n++;
+  });
+  return n ? sum / n : 0;
+}
+function moodFor(d){
+  if(d.kind === 'questions') return moodFor(WEEK[CONTENT - 1]);
+  if(d.mood === 'bull' || d.mood === 'bear') return d.mood;
+  if(d.scores) return d.scores.reduce((a, s) => a + (+s.pct || 0), 0) >= 0 ? 'bull' : 'bear';
+  return tapeScore(d.tape) >= 0 ? 'bull' : 'bear';
+}
+
+/* Two marks, drawn not typed: an emoji would be a different animal on
+   every operating system, and half of them are comic. Eyes are cut out
+   of the mass with an even-odd fill so the mark works on any backdrop. */
+const MOOD_MARK = {
+  bull: '<svg viewBox="0 0 24 24" aria-hidden="true" fill-rule="evenodd">'
+      + '<path d="M2.4 4.1c0 3.9 1.9 6.4 4.3 7.4a5.7 5.7 0 0 0-.2 1.6c0 3.2 2.4 5.7 5.5 5.7s5.5-2.5 5.5-5.7c0-.55-.07-1.09-.2-1.6 2.4-1 4.3-3.5 4.3-7.4-2.3 0-4.2 1.1-5.4 2.9A7.7 7.7 0 0 0 12 5.9c-1.6 0-3.1.4-4.2 1.1C6.6 5.2 4.7 4.1 2.4 4.1Zm7.2 8.2a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm4.8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>'
+      + '</svg>',
+  bear: '<svg viewBox="0 0 24 24" aria-hidden="true" fill-rule="evenodd">'
+      + '<path d="M6.1 3.6a3 3 0 0 0-1.6 5.5 8.6 8.6 0 0 0-.6 3.1c0 4.2 3.6 7.2 8.1 7.2s8.1-3 8.1-7.2a8.6 8.6 0 0 0-.6-3.1 3 3 0 1 0-3.6-4.8A9.8 9.8 0 0 0 12 3.4c-1.4 0-2.7.3-3.9.9a3 3 0 0 0-2-.7Zm4 7.7a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm5.8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3.9 2.4c1.5 0 2.7.9 2.7 2s-1.2 2-2.7 2-2.7-.9-2.7-2 1.2-2 2.7-2Z"/>'
+      + '</svg>'
+};
+const moodMark = (k) => MOOD_MARK[k] || '';
+const moodWord = (k) => k === 'bull' ? 'Bull' : 'Bear';
+
+/* ── the clock ───────────────────────────────────────
+   Five minutes, exactly. Measured against the wall clock and never by
+   counting ticks: setInterval is throttled in a background tab and rAF
+   stops dead in one, so a counter would quietly lose minutes while the
+   deck sat on a second screen. Every paint recomputes from Date.now(),
+   which is right however long the tab was hidden. */
+const TALK_MS   = 5 * 60 * 1000;
+/* Each slide owns a slice of the five minutes in proportion to how much
+   of the script is spoken over it, so a long slide isn't marked late. */
+const NOTE_WORDS = WEEK.slice(0, CONTENT).map(d =>
+  [].concat(d.notes || []).join(' ').split(/\s+/).filter(Boolean).length || 1);
+const TOTAL_WORDS = NOTE_WORDS.reduce((a, b) => a + b, 0);
+const slideStart = (i) => NOTE_WORDS.slice(0, i).reduce((a, b) => a + b, 0) / TOTAL_WORDS * TALK_MS;
+const slideShare = (i) => (NOTE_WORDS[i] || 0) / TOTAL_WORDS * TALK_MS;
+const T = { left: TALK_MS, end: 0, running: false };
+
+const timerEl = $('#timer');
+/* Counting down pads to 05:00 so the digits never change width; counting
+   past zero drops the pad, because +0:12 is a sentence and +00:12 is a
+   serial number. */
+const mmss = (ms) => {
+  if(ms < 0){
+    const s = Math.floor(-ms / 1000);
+    return '+' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  }
+  const s = Math.ceil(ms / 1000);
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+};
+const gap = (ms) => {
+  const s = Math.round(ms / 1000);
+  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+};
+const tLeft = () => T.running ? T.end - Date.now() : T.left;
+
+function tStart(){
+  if(T.running) return;
+  T.end = Date.now() + T.left;
+  T.running = true;
+  tFace(); tPaint();
+}
+function tStop(){
+  if(!T.running) return;
+  T.left = T.end - Date.now();
+  T.running = false;
+  tFace(); tPaint();
+}
+/* Reset means "run the five minutes again from here". If the clock was
+   running it keeps running, because the only reason to press it mid-talk
+   is that you have started over, not that you want to stop. */
+function tReset(){
+  T.left = TALK_MS;
+  if(T.running) T.end = Date.now() + TALK_MS;
+  say('Clock reset to five minutes');
+  tPaint();
+}
+function tToggle(){ T.running ? tStop() : tStart(); }
+
+const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+const ICON_PLAY  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.6v14.8L19.5 12 7 4.6Z" fill="currentColor" stroke-linejoin="round"/></svg>';
+function tFace(){
+  const b = $('#tToggle');
+  b.innerHTML = T.running ? ICON_PAUSE : ICON_PLAY;
+  b.setAttribute('aria-label', T.running ? 'Pause the clock' : 'Start the clock');
+  b.setAttribute('title', (T.running ? 'Pause the clock' : 'Start the clock') + ' (P)');
+  stage.classList.toggle('t-hold', S.started && !T.running);
+}
+
+function tPaint(){
+  const ms = tLeft();
+  $('#tTime').textContent = mmss(ms);
+
+  const state = !S.started && ms === TALK_MS ? 'idle'
+    : ms < 0        ? 'over'
+    : !T.running    ? 'paused'
+    : ms <= 30000   ? 'alarm'
+    : ms <= 60000   ? 'warn'
+    : 'run';
+  timerEl.dataset.state = state;
+
+  const used = Math.min(1, Math.max(0, (TALK_MS - ms) / TALK_MS));
+  $('#tFill').style.width = (used * 100).toFixed(2) + '%';
+
+  /* Where the clock should be right now: each slide owns its word-weighted
+     slice of the five minutes, and progress through the day's beats says how much
+     of its slice should be spent. Fill short of the tick is time in hand;
+     fill past it is time borrowed from the close. */
+  const beats = lower.querySelectorAll('.reveal').length;
+  const frac  = !S.started ? 0 : (beats ? Math.min(1, S.r / beats) : 1);
+  const due   = Math.min(TALK_MS, slideStart(S.i) + frac * slideShare(S.i));
+  $('#tMark').style.left = ((due / TALK_MS) * 100).toFixed(2) + '%';
+
+  const pace = $('#tPace');
+  pace.classList.remove('behind', 'ahead');
+  if(!S.started){
+    pace.textContent = 'Five minutes';
+  } else if(WEEK[S.i] && WEEK[S.i].kind === 'questions'){
+    pace.textContent = 'Over to the room';
+  } else if(ms < 0){
+    pace.textContent = 'Over time';
+    pace.classList.add('behind');
+  } else {
+    const delta = (TALK_MS - ms) - due;
+    if(delta > 10000){ pace.textContent = 'Behind ' + gap(delta);  pace.classList.add('behind'); }
+    else if(delta < -10000){ pace.textContent = 'Ahead ' + gap(-delta); pace.classList.add('ahead'); }
+    else pace.textContent = 'On pace';
+  }
+
+  const el = $('#tElapsed');
+  if(el){
+    const spent = TALK_MS - ms;
+    el.textContent = ms < 0
+      ? 'Delivered in ' + gap(spent) + ' · ' + mmss(ms) + ' over'
+      : 'Delivered in ' + gap(spent) + ' of 5:00';
+  }
+}
+const say = (msg) => { const n = $('#say'); if(n) n.textContent = msg; };
+
+/* notes may be one string or several paragraphs */
+function fillNotes(d){
+  const el = $('#notes');
+  if(!el) return;
+  const paras = Array.isArray(d.notes) ? d.notes : (d.notes ? [d.notes] : []);
+  el.innerHTML = `<div class="notes-k">Your script<span>${d.label}</span></div>` +
+    (paras.length ? paras.map(p => `<p>${p}</p>`).join('') : '<p>No notes for this slide.</p>');
+}
+function toggleNotes(){
+  const on = stage.classList.toggle('show-notes');
+  const b = $('#tNotes');
+  if(b){ b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', on ? 'Hide your script' : 'Show your script'); }
+}
+
+/* Until someone has called the week, the only controls that exist are the two
+   picks. Left reachable, the rail would tab-jump behind the start screen and
+   the clock would run a talk that has not begun. */
+function preStart(on){
+  [$('.deckside'), railEl].forEach(el => { if(el) el.inert = on; });
+}
+
+/* ── the story column ────────────────────────────────── */
+/* Questions: the one page built for the room rather than for the week.
+   WEEK_META.askMe can carry two or three prompts - the things the presenter
+   would most like to be asked about - and each is a beat of its own. */
+function questionsHTML(d){
+  /* meta.questions: [{ask, facts}] - the ask is shown, the facts are for the
+     presenter's script only. A plain askMe list of strings still works. */
+  const asks = (WEEK_META.questions || WEEK_META.askMe || [])
+    .map(q => typeof q === 'string' ? q : q.ask).filter(Boolean)
+    .map(a => `<li class="reveal">${a}</li>`).join('');
+  const mark = (typeof DAVY_MARK === 'object' && DAVY_MARK) ? DAVY_MARK.svg(40, { title: BRAND.name }) : '';
+  return `<div class="col qa">
+    <div class="eyebrow">
+      <span class="chip"><span class="dot" aria-hidden="true"></span>Over to the room</span>
+      <span>${d.date}</span>
+    </div>
+    <h2 class="qa-title">Questions?</h2>
+    <p class="qa-thanks">Thank you.</p>
+    ${asks ? `<div class="qa-asks"><div class="qa-k">Worth asking about</div><ul>${asks}</ul></div>` : ''}
+    <div class="qa-by">${mark}<span><b>${BRAND.by}</b><br>${BRAND.name} &middot; ${BRAND.product}</span></div>
+  </div>`;
+}
+
+function slideHTML(d){
+  if(d.kind === 'questions') return questionsHTML(d);
+  const scene = SCENES[d.region] || SCENES.global;
+  const mood  = moodFor(d);
+  /* A day still ahead of the presentation carries the desk's lean, not a
+     result, and every number on it is scaffolding until the print lands. */
+  const pending = d.state === 'pending';
+  let html = `
+    <div class="eyebrow">
+      <span class="chip"><span class="dot" aria-hidden="true"></span>${scene.badge}</span>
+      <span class="mood ${mood}">${moodMark(mood)}${moodWord(mood)} ${pending ? 'lean' : 'tape'}</span>
+      ${pending ? `<span class="pendchip"><span class="pdot"></span>${d.pendingLabel || 'Figures to come'}</span>` : ''}
+      <span>${d.sub || ''}</span>
+    </div>
+    <h2 class="dayname">${d.label}</h2>
+    <div class="daterow"><span>${d.date}</span><span class="sep" aria-hidden="true">&#9679;</span><span>${scene.name}</span></div>
+    <p class="headline">${d.headline}</p>`;
+
+  /* Why this animal, in one line. Not a reveal: it belongs to the header,
+     and the room should be able to read it while the first bullet lands. */
+  if(d.moodNote && !d.scores){
+    const key = pending ? 'What decides it' : `Why the ${mood}`;
+    html += `<p class="why ${mood}${pending ? ' pending' : ''}"><span class="why-k">${key}</span><span>${d.moodNote}</span></p>`;
+  }
+
+  if(d.scores){
+    const max = Math.max(...d.scores.map(s => Math.abs(s.pct))) || 1;
+    const rows = d.scores.map((s,k) => {
+      const w   = (Math.abs(s.pct) / max * 50).toFixed(1) + '%';
+      const pos = s.pct >= 0;
+      const col = pos ? 'var(--up)' : 'var(--down)';
+      const side = pos ? 'left:50%' : 'right:50%';
+      return `<div class="score-row" style="--i:${k}">
+        <span class="score-name" title="${s.name}">${s.name}</span>
+        <span class="score-bar"><span class="score-fill" style="${side};--w:${w};background:${col}"></span></span>
+        <span class="score-val" style="color:${col}">${pos?'+':'−'}${Math.abs(s.pct).toFixed(1)}%</span>
+      </div>`;
+    }).join('');
+    html += `<div class="score reveal">${rows}</div>`;
+    html += verdictHTML(d, mood);
+  } else if(d.stats && d.stats.length){
+    html += tilesHTML(d.stats);
+  } else {
+    const pts = (d.points||[]).map(p =>
+      `<li class="reveal"><span class="tick">${p.tick}</span><span>${p.text}</span></li>`
+    ).join('');
+    html += `<ul class="points">${pts}</ul>`;
+  }
+
+  /* One or two charts, stacked in the right-hand column. Each is its own
+     beat, so the presenter can land the first before the second draws. */
+  const charts = chartsOf(d);
+  if(charts.length){
+    const size = (c) => (c.size === 'hero' || (charts.length === 1 && d.stats)) ? 'hero' : 'column';
+    html += `<div class="charts n${charts.length}">` + charts.map(c =>
+      `<div class="chartwrap reveal"><div class="chart-root">${chartSVG(c, { size: size(c) })}</div></div>`
+    ).join('') + `</div>`;
+  }
+  return `<div class="col">${html}</div>`;
+}
+
+/* The close settles the call made at the gate. Being wrong is part of the
+   bit, so it is stated plainly rather than hidden. */
+function verdictHTML(d, mood){
+  const up = d.scores.filter(s => +s.pct > 0).length;
+  const n  = d.scores.length;
+  const called = S.call
+    ? `You called the <b>${moodWord(S.call)}</b>. ${S.call === mood ? 'The tape agrees.' : 'The tape disagrees.'} `
+    : '';
+  if(d.state === 'pending'){
+    return `<div class="verdict reveal ${mood}">
+      ${moodMark(mood)}
+      <p>${d.verdictNote || 'The week is still running: the scoreboard settles on Friday&rsquo;s close, and your call settles with it.'}</p>
+      <p class="verdict-time" id="tElapsed"></p>
+    </div>`;
+  }
+  return `<div class="verdict reveal ${mood}">
+      ${moodMark(mood)}
+      <p>${called}${up} of ${n} markets closed higher, so the week belongs to the <b>${moodWord(mood)}</b>.</p>
+      <p class="verdict-time" id="tElapsed"></p>
+    </div>`;
+}
+
+const chartsOf = (d) => HAS_CHARTS ? (d.charts || (d.chart ? [d.chart] : [])) : [];
+
+/* The big numbers. A tile says three things the room can read from the
+   back: what it is, where it closed, and which way it went - the arrow and
+   the sign carry the direction as well as the colour, never colour alone. */
+function tilesHTML(stats){
+  const tiles = stats.slice(0, 4).map((t, k) => {
+    const dir = t.chg ? dirClass(t.chg) : 'flat';
+    const arrow = dir === 'up' ? '&#9650; ' : dir === 'down' ? '&#9660; ' : '';
+    return `<div class="tile ${dir}" style="--i:${k}">
+      <div class="tile-k">${t.label}</div>
+      <div class="tile-v">${t.value}</div>
+      ${t.chg ? `<div class="tile-c ${dir}">${arrow}${t.chg}</div>` : ''}
+      ${t.note ? `<div class="tile-n">${t.note}</div>` : ''}
+    </div>`;
+  }).join('');
+  return `<div class="tiles reveal">${tiles}</div>`;
+}
+
+/* Shrink the column in small steps until it fits the available height.
+   Reading the box each pass forces a reflow, so the loop sees the real
+   height after each step. Widening the column as it scales also lets the
+   text rewrap, which recovers more room than the scale alone. */
+function fitColumn(){
+  const col = lower.firstElementChild;
+  if(!col) return;
+  col.style.setProperty('--fit', '1');
+  const avail = lower.clientHeight;
+  /* Five steps bottom out at 0.80. Below that the type stops being
+     readable from a room, so a still-oversized slide scrolls instead -
+     which it can now do at any width, not only on a phone. */
+  col.style.marginBottom = '0px';
+  /* A phone is held at arm's length, not read from the back of a room, so it
+     can take the smaller steps that would be unreadable on a projector. */
+  /* A short laptop screen gets two more steps before it scrolls. A phone
+     barely shrinks at all: a chart day is taller than any phone screen
+     whatever the scale, so shrinking only made the type tiny AND left it
+     scrolling. On a phone, readable type and a scroll is the right trade. */
+  const steps = innerWidth < 900 ? 2 : innerHeight < 700 ? 7 : 5;
+  for(let i = 0; i < steps; i++){
+    if(col.getBoundingClientRect().height <= avail - 14) break;
+    col.style.setProperty('--fit', (1 - (i + 1) * 0.04).toFixed(2));
+  }
+  /* A scaled element still occupies its full unscaled height in layout, so
+     the column would report itself scrollable while looking perfectly
+     placed - and a stray trackpad nudge would then push the slide out of
+     sight. Pulling the lost height back off the bottom margin makes the
+     layout box match what is on screen, so the scrollbar only ever appears
+     when the copy genuinely does not fit at the smallest step. */
+  const f = parseFloat(col.style.getPropertyValue('--fit')) || 1;
+  if(f < 1){
+    const shown = col.getBoundingClientRect().height;
+    col.style.marginBottom = Math.round(shown - shown / f) + 'px';
+  }
+}
+
+function renderSlide(idx){
+  const d = WEEK[idx];
+  lower.innerHTML = slideHTML(d);
+  lower.classList.remove('exit');
+  lower.classList.remove('enter'); void lower.offsetWidth; lower.classList.add('enter');
+  stage.classList.remove('landed'); void stage.offsetWidth; stage.classList.add('landed');
+  setTimeout(() => stage.classList.remove('landed'), 800);
+  const hasChart = chartsOf(d).length > 0;
+  stage.classList.toggle('has-chart', hasChart);
+  /* A number-and-chart day is a visual slide: the chart gets the larger
+     share of the width, the same as a hero chart does. */
+  stage.classList.toggle('is-wide', hasChart && (!!d.stats || chartsOf(d).some(c => c.size === 'hero')));
+  stage.classList.toggle('is-visual', !!(d.stats && d.stats.length));
+  stage.classList.toggle('two-charts', chartsOf(d).length > 1);
+  fillNotes(d);
+  setTape(d.tape);
+  paintRail();
+  S.r = 0;
+  const isQA = d.kind === 'questions';
+  $('#counter').innerHTML = isQA
+    ? '<b>Q&amp;A</b>'
+    : `<b>${String(idx+1).padStart(2,'0')}</b> / ${String(CONTENT).padStart(2,'0')}`;
+  setHint(isQA ? 'Press R to run it again' : d.scores ? 'Click for the scorecard' : 'Click anywhere', !isQA);
+  stage.classList.toggle('is-qa', isQA);
+  /* The talk is over when the room gets the floor: the clock stops where
+     the presenter finished, so the reading is what was actually delivered. */
+  if(isQA && T.running) tStop();
+  say(`${d.label}. ${d.headline}`);
+  tPaint();
+  document.title = `${d.label} — ${BRAND.name} ${BRAND.product}`;
+  /* Synchronous, not rAF: rAF never fires in a hidden tab, and the deck
+     may well be loaded in a background tab before anyone looks at it. */
+  fitColumn();
+  if(chartsOf(d).length) setTimeout(fitColumn, 260);
+}
+
+/* Reveal the next beat. Returns false when the slide is spent. */
+function revealNext(){
+  const items = [...lower.querySelectorAll('.reveal')];
+  if(S.r >= items.length) return false;
+  const el = items[S.r];
+  el.classList.add('shown');
+  const root = el.querySelector('.chart-root');
+  if(root){
+    root.classList.add('is-in');
+    if(typeof chartAttach === 'function'){ try{ chartAttach(el); }catch(e){} }
+    /* A chart re-draws itself to the width it was actually given, which
+       changes the column's height after we measured it. Re-fit once it
+       has settled, and again in case a webfont lands in between. */
+    setTimeout(fitColumn, 140);
+    setTimeout(fitColumn, 460);
+    setTimeout(fitColumn, 950);
+  }
+  S.r++;
+  tPaint();
+  if(S.r >= items.length && WEEK[S.i].scores) setHint('Click for questions');
+  return true;
+}
+
+/* ── travel ──────────────────────────────────────────── */
+function arriveAt(next){
+  renderSlide(next);
+  if(!WEEK[next].scores) revealNext();
+  S.busy = false;
+}
+/* Swapping the drawing keeps the flip and the 3D handle in step; it only
+   ever happens while the animal is off-screen. */
+function swapRunner(kind, dir){
+  const flipped = beastEl.classList.contains('flipped');
+  mountRunner(kind);
+  S.kind = kind;
+  if(flipped && !beastEl.classList.contains('is-img')) beastEl.classList.add('flipped');
+  if(beast3d){ beast3d.setFacing(dir); beast3d.setRunning(true); }
+}
+
+function goTo(next){
+  if(S.busy || next < 0 || next >= WEEK.length) return;
+  const dir = next > S.i ? 1 : -1;
+  /* Which animal carries you into this day - the day's own, not the one
+     the presenter picked at the gate. */
+  const nextKind = moodFor(WEEK[next]);
+  S.busy = true;
+  S.i = next;
+
+  lower.classList.add('exit');
+
+  /* The incoming scene goes in UNDERNEATH at full opacity and the outgoing
+     one fades off the top of it. Fading the incoming IN would mean a scene
+     that only becomes visible if its transition actually ticks — and the
+     worst case there is a black screen, rather than a hard cut. */
+  const outgoing = S.world;
+  const incoming = makeWorld(WEEK[next].region);
+  worlds.insertBefore(incoming, outgoing || null);
+  S.world = incoming;
+
+  if(REDUCED){
+    if(outgoing) outgoing.remove();
+    if(nextKind !== S.kind) swapRunner(nextKind, dir);
+    arriveAt(next);
+    return;
+  }
+
+  stage.classList.add('is-running');
+  panLayers(incoming, dir, 0, RUN);
+  if(outgoing){
+    panLayers(outgoing, 0, -dir, RUN);
+    outgoing.classList.add('is-out');
+    setTimeout(() => { outgoing.style.opacity = '0'; }, RUN * 0.30);
+  }
+
+  /* the animal charges off one edge and arrives from the other */
+  const off = dir > 0 ? '112%' : '-42%';
+  const on  = dir > 0 ? '-42%' : '112%';
+  if(beast3d){ beast3d.setFacing(dir); beast3d.setRunning(true); }
+  else if(!beastEl.classList.contains('is-img')) beastEl.classList.toggle('flipped', dir < 0);
+  beastEl.style.transition = `left ${RUN*0.52}ms cubic-bezier(.36,0,.66,.4)`;
+  beastEl.style.left = off;
+
+  setTimeout(() => {
+    if(nextKind !== S.kind) swapRunner(nextKind, dir);
+    beastEl.style.transition = 'none';
+    beastEl.style.left = on;
+    void beastEl.offsetWidth;
+    beastEl.style.transition = `left ${RUN*0.46}ms cubic-bezier(.2,.6,.3,1)`;
+    beastEl.style.left = '';
+  }, RUN * 0.54);
+
+  setTimeout(() => {
+    if(outgoing) outgoing.remove();
+    incoming.querySelectorAll('.layer').forEach(l => { l.style.transition='none'; l.style.transform='none'; });
+    stage.classList.remove('is-running');
+    if(beast3d){ beast3d.setRunning(false); beast3d.setFacing(1); }
+    beastEl.classList.remove('flipped');
+    beastEl.style.left = '';
+    arriveAt(next);
+  }, RUN);
+}
+
+/* ── the one interaction ─────────────────────────────── */
+function advance(){
+  if(!S.started || S.busy) return;
+  if(revealNext()) return;
+  /* The deck stops at the questions page. A stray click at the end of a
+     presentation must not wipe the screen — restarting is deliberate. */
+  if(S.i < WEEK.length - 1) goTo(S.i + 1);
+}
+function back(){ if(S.started && !S.busy && S.i > 0) goTo(S.i - 1); }
+
+function restart(){
+  gate.inert = false;
+  preStart(true);
+  gate.classList.remove('gone');
+  gate.classList.remove('intro'); void gate.offsetWidth; gate.classList.add('intro');
+  S.started = false; S.i = 0; S.r = 0; S.world = null; S.kind = null; S.call = null;
+  T.running = false; T.left = TALK_MS; tFace(); tPaint();
+  worlds.innerHTML = ''; lower.innerHTML = '';
+  if(beast3d){ try{ beast3d.destroy(); }catch(e){} beast3d = null; }
+  beastEl.classList.remove('is3d', 'is-img'); beastEl.innerHTML = '';
+  mountFaceoffArt();
+  stage.classList.remove('is-wide');
+  beastEl.style.transition = 'none'; beastEl.style.left = '';
+  setHint('Click anywhere');
+  document.title = `${BRAND.name} ${BRAND.product}`;
+}
+
+/* Try 3D first and fall back to the SVG drawing if it declines to start. */
+function mountRunner(kind){
+  beastEl.innerHTML = '';
+  beastEl.classList.remove('is3d', 'is-img');
+  beast3d = null;
+  const art = artFor(kind);
+  if(art){
+    beastEl.innerHTML = `<img src="${art}" alt="">`;
+    beastEl.classList.add('is-img');
+    return;
+  }
+  if(HAS_3D){
+    try{
+      const h = mountBeast(beastEl, { kind, brandText: BRAND.name });
+      if(h && beastEl.querySelector('canvas')){ beast3d = h; beastEl.classList.add('is3d'); return; }
+    }catch(e){ /* fall through to SVG */ }
+    beastEl.innerHTML = '';
+  }
+  beastEl.innerHTML = beastSVG(kind);
+}
+
+function start(kind){
+  /* The pick is the presenter's call on the week and is settled at the
+     close. What runs on screen from here is each day's own animal. */
+  S.call = kind;
+  S.kind = moodFor(WEEK[0]);
+  S.started = true;
+  mountRunner(S.kind);
+  if(face3d){ face3d.destroy(); face3d = null; }   /* free the GPU context */
+  gate.classList.add('gone');
+  gate.inert = true;
+  preStart(false);
+  S.world = makeWorld(WEEK[0].region);
+  worlds.appendChild(S.world);
+  renderSlide(0);
+  tStart();
+  setTimeout(revealNext, 420);
+}
+
+function mountFaceoffArt(){
+  const el = $('#faceoff');
+  if(face3d){ try{ face3d.destroy(); }catch(e){} face3d = null; }
+  el.innerHTML = ''; el.classList.remove('is3d', 'is-img'); el.style.display = '';
+  const art = artFor('faceoff');
+  if(art){
+    el.innerHTML = `<img src="${art}" alt="The bull and the bear, squared up">`;
+    el.classList.add('is-img');
+    return;
+  }
+  if(HAS_3D_FACE){
+    try{
+      const h = mountFaceoff(el);
+      if(h && el.querySelector('canvas')){ face3d = h; el.classList.add('is3d'); return; }
+    }catch(e){ /* fall through */ }
+    el.innerHTML = '';
+  }
+  if(HAS_FACEOFF) el.innerHTML = faceoffSVG();
+  else el.style.display = 'none';
+}
+
+function boot(){
+  if(typeof CHART_CSS === 'string'){
+    const st = document.createElement('style');
+    st.textContent = CHART_CSS;
+    (document.head || document.body).appendChild(st);
+  }
+
+  buildRail(); seedDust(); seedSpeedlines(); setHint('Click anywhere');
+  preStart(true);
+  gate.classList.add('intro');
+
+  /* Webfonts change the measured height, so re-fit once they have landed. */
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(() => { if(S.started) fitColumn(); });
+  }
+
+  /* The official mark if it is present, the name in type if it is not, so a
+     build without the brandmark file still ships something honest. */
+  const MARK = (typeof DAVY_MARK === 'object' && DAVY_MARK) ? DAVY_MARK : null;
+  if(MARK){
+    $('#brandWord').innerHTML = MARK.svg(26, { title: BRAND.name });
+    $('#gateMark').innerHTML  = MARK.svg(78, { title: BRAND.name });
+  } else {
+    $('#brandWord').textContent = BRAND.name;
+    $('#gateMark').textContent  = BRAND.name;
+  }
+  $('#brandProduct').textContent = BRAND.product;
+  $('#byline').innerHTML = `Presentation by <b>${BRAND.by}</b>`;
+
+  mountFaceoffArt();
+
+  /* Honesty labelling: demo data says so up front and stays flagged. */
+  const isDemo = WEEK_META.source === 'demo';
+  /* the kicker names the edition: the week, and the deep dive's title if it has one */
+  $('#gateKicker').textContent = [BRAND.product, WEEK_META.title !== 'The Weekly Stampede' && WEEK_META.title,
+    WEEK_META.week || (WEEK[CONTENT-1] && WEEK[CONTENT-1].date)].filter(Boolean).join(' · ');
+  $('#gateNote').innerHTML = isDemo
+    ? `<span class="warn">Demo copy.</span> ${WEEK_META.subtitle || 'Placeholder content — replace before presenting.'}`
+    : `Updated ${WEEK_META.generated}`;
+  $('#stamp').textContent = isDemo
+    ? `Placeholder figures · built ${WEEK_META.generated}`
+    : `Updated ${WEEK_META.generated}` + (WEEK_META.sourceLine ? ` · ${WEEK_META.sourceLine}` : '');
+  $('#demoChip').style.display = isDemo ? '' : 'none';
+
+  document.querySelectorAll('.pick').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); start(b.dataset.kind); }));
+
+  /* The controls live inside the one big click target, so every one of
+     them has to stop the click reaching the stage behind it. */
+  const guard = (el, fn) => el.addEventListener('click', e => { e.stopPropagation(); fn(); });
+  guard($('#tToggle'), tToggle);
+  guard($('#tReset'),  tReset);
+  guard($('#tNotes'),  toggleNotes);
+  guard($('#skip'),    () => S.started ? advance() : start('bull'));
+  tFace();
+  /* Four paints a second keeps the seconds honest without being a loop. */
+  setInterval(tPaint, 250);
+  tPaint();
+
+  /* Everything that is genuinely a control keeps its own click: a chart
+     tooltip, the values table, the rail, the clock. The rest of the stage
+     is the one big Next button the deck is built around. */
+  stage.addEventListener('click', e => {
+    if(e.target.closest('.gfc,.rail,.gate,.timer,.notes,button,a,summary,input,[tabindex]')) return;
+    advance();
+  });
+  addEventListener('keydown', e => {
+    /* A browser shortcut is not ours to take. */
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    /* Neither is a keystroke aimed at a control the user has focused. */
+    const onControl = e.target && e.target.closest &&
+      e.target.closest('button,a,summary,input,select,textarea,[tabindex]');
+    if(onControl && ['Enter',' ','Spacebar','ArrowLeft','ArrowRight'].includes(e.key)) return;
+    const isSpace = e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar';
+    if(!S.started){
+      if(e.key === 'ArrowLeft')  { e.preventDefault(); start('bear'); }
+      if(e.key === 'ArrowRight') { e.preventDefault(); start('bull'); }
+      return;
+    }
+    if(isSpace || e.key === 'ArrowRight' || e.key === 'Enter'){ e.preventDefault(); advance(); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); back(); }
+    else if(e.key.toLowerCase() === 'r'){ e.preventDefault(); restart(); }
+    else if(e.key.toLowerCase() === 'p'){ e.preventDefault(); tToggle(); }
+    else if(e.key.toLowerCase() === 'n'){ e.preventDefault(); toggleNotes(); }
+    else if(e.key === '0'){ e.preventDefault(); tReset(); }
+    else if(/^[1-9]$/.test(e.key)){ const n = +e.key - 1; if(n < WEEK.length) goTo(n); }
+  });
+  addEventListener('resize', () => {
+    fitColumn();
+    if(beast3d) beast3d.resize();
+    if(face3d) face3d.resize();
+    if(typeof chartAttach === 'function'){ try{ chartAttach(lower); }catch(e){} }
+  });
+}
+boot();
+
+/* QA: open index.html#scan (served over http) and the deck walks every slide
+   at the current window size, then reports anything cut off, overlapping,
+   empty or broken - in the console and in the tab title. */
+if(location.hash === '#scan'){
+  const qa = document.createElement('script');
+  qa.src = 'tools/glitch-scan.js';
+  qa.onload = () => window.__scan().then(r => {
+    const NL = String.fromCharCode(10);
+    console.log('[scan] ' + (r.ok ? 'OK' : 'PROBLEMS') + ' at ' + r.vw + 'x' + r.vh + NL +
+      (r.problems.join(NL) || 'none') + NL + r.slides.join(NL));
+    document.title = (r.ok ? 'SCAN OK' : 'SCAN: ' + r.problems.length + ' problem(s)') + ' - ' + document.title;
+    window.__scanResult = r;
+  });
+  document.head.appendChild(qa);
+}
+</script>

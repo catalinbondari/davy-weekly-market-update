@@ -1,0 +1,895 @@
+{
+  "_readme": "The week's content. The ONLY file to edit each week. Rules: AGENTS.md. After editing: python src/rebuild.py",
+  "meta": {
+    "title": "The Weekly Stampede",
+    "subtitle": "Week of 21–25 Sep 2026 · gold miners, India, emerging markets and equities",
+    "week": "21-25 Sep 2026",
+    "generated": "24 Sep 2026",
+    "source": "live",
+    "sourceLine": "Closes: FT, AP, NSE, US Treasury, ICE",
+    "presenter": "Catalin Bondari",
+    "questions": [
+      {
+        "ask": "Is one hike the end of it — or the start of a cycle, with the ten-year at 5.1%?",
+        "facts": [
+          "16 of the Fed's 18 officials expect at least one more hike this year, and four expect two (Fed projections, 16 Sep).",
+          "Markets price roughly a 70% chance of a hike in October (CME FedWatch, 23 Sep).",
+          "New York Fed's Williams (24 Sep): another hike this year is “reasonable”, but he would not commit to October.",
+          "The next inflation read the Fed targets, August PCE, is out on Wednesday 30 September (BEA)."
+        ]
+      },
+      {
+        "ask": "The miners move about twice as far as gold, both ways. Does that still make sense 22% below the record?",
+        "facts": [
+          "This week GDX rose 3.6% and fell 4.4% on consecutive days, while gold moved −0.2% and −1.3%.",
+          "Gold is about 22% below its January record of $5,595 (Reuters, 22 Sep).",
+          "Kinross now plans on $4,350 gold, with all-in sustaining costs of about $1,850–1,900 an ounce, after cutting output guidance (23 Sep).",
+          "Goldman Sachs kept its $4,900 end-2026 gold target (Kitco, 23 Sep)."
+        ]
+      },
+      {
+        "ask": "India after the insurance shock and six straight weekly falls: value, or wait for the RBI on 7 October?",
+        "facts": [
+          "Foreign investors have sold ₹2.45 lakh crore of Indian equities in 2026, more than in all of 2025 (Angel One, 20 Sep).",
+          "Monday to Wednesday, domestic funds bought ₹9,259 crore while foreign investors sold ₹2,769 crore (NSE provisional).",
+          "The Nifty fell for six straight weeks to 18 September, its longest run since 2020 (HDFC Sky).",
+          "The RBI decides on 7 October; the IRDAI consultation on distribution costs is open until 25 October."
+        ]
+      }
+    ],
+    "sourcing": [
+      "Closing levels checked against FT Markets Data where FT publishes them: S&P 500, Brent, Nifty 50, Nasdaq, FTSE 100, GDX, EEM and the Hang Seng.",
+      "Otherwise two independent sources that agree: AP (US indices), US Treasury (yields), ICE via Reuters (Brent), NSE via Kotak Neo and Liquide (India), Yahoo Finance and Investing.com (COMEX December gold, GDX, GDXJ).",
+      "Taiwan, Korea and the CSI 300 come from Focus Taiwan, Seoul Economic Daily and Investing.com/Xinhua; FT's free pages don't carry them.",
+      "Fed decision and projections: federalreserve.gov. PMIs: S&P Global and HSBC flash releases. PB Fintech: BusinessToday, Ventura Securities.",
+      "Figures run to Thursday's close for India and Asia and Wednesday's close for the US, gold and oil. Update the Friday slide and the scoreboard before presenting."
+    ]
+  },
+  "days": [
+    {
+      "key": "weekend",
+      "label": "Weekend",
+      "sub": "The set-up",
+      "date": "Sat 19 – Sun 20 Sep",
+      "region": "global",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "A 25bp hike with 16 of 18 officials pencilling in more — higher for longer is the starting point.",
+      "headline": "The Fed hiked for the first time in about three years — and sixteen of its eighteen officials want to go again.",
+      "stats": [
+        {
+          "label": "Fed funds target",
+          "value": "3.75–4.00%",
+          "chg": "+25bp",
+          "note": "Hiked 16 Sep, vote 12–0"
+        },
+        {
+          "label": "US 10-year yield",
+          "value": "5.01%",
+          "note": "Friday 18 Sep close"
+        },
+        {
+          "label": "Brent crude",
+          "value": "$103.87",
+          "chg": "-0.91%",
+          "note": "Friday 18 Sep settle"
+        }
+      ],
+      "chart": {
+        "kind": "bars",
+        "title": "Where the Fed sees rates at the end of 2026",
+        "note": "Number of FOMC participants · Federal Reserve projections, 16 Sep",
+        "unit": "",
+        "bars": [
+          {
+            "name": "No more hikes",
+            "v": 2
+          },
+          {
+            "name": "One more hike",
+            "v": 12
+          },
+          {
+            "name": "Two more hikes",
+            "v": 4
+          }
+        ]
+      },
+      "notes": [
+        "Right — this week comes down to one question: is the Fed done?",
+        "Last Wednesday it raised rates for the first time in about three years — a quarter point, to three and three-quarters to four per cent. The chart is what matters: sixteen of the eighteen officials expect at least one more hike this year, and four expect two.",
+        "So we started the week with the ten-year at five per cent and Brent above a hundred dollars. That's the backdrop for everything that follows."
+      ],
+      "tape": [
+        {
+          "name": "S&P 500",
+          "chg": "+0.17%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "+0.4%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "+0.57%"
+        },
+        {
+          "name": "GDX",
+          "chg": "-0.46%"
+        },
+        {
+          "name": "Nifty 50",
+          "chg": "+0.33%"
+        },
+        {
+          "name": "MSCI EM",
+          "chg": "+1.36%"
+        },
+        {
+          "name": "Brent",
+          "chg": "-0.91%"
+        },
+        {
+          "name": "UST 10y",
+          "chg": "5.01%"
+        }
+      ],
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+        "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202609",
+        "https://markets.ft.com/data/commodities/tearsheet/historical?c=Brent+Crude+Oil",
+        "https://wtop.com/national/2026/09/how-major-us-stock-indexes-fared-friday-9-18-2026"
+      ]
+    },
+    {
+      "key": "monday",
+      "label": "Monday",
+      "sub": "The AI trade",
+      "date": "Mon 21 Sep",
+      "region": "us",
+      "state": "filed",
+      "mood": "bull",
+      "moodNote": "Nasdaq +2.3% to a record on AI and chips, with Brent down 3.4% as the Hormuz premium faded.",
+      "headline": "An AI-led rally took the Nasdaq to a record close, helped by Brent falling back to $100.",
+      "stats": [
+        {
+          "label": "Nasdaq Composite",
+          "value": "27,122",
+          "chg": "+2.26%",
+          "note": "Record close"
+        },
+        {
+          "label": "S&P 500",
+          "value": "7,764.70",
+          "chg": "+1.49%"
+        },
+        {
+          "label": "Brent crude",
+          "value": "$100.34",
+          "chg": "-3.40%",
+          "note": "Hormuz risk premium fades"
+        }
+      ],
+      "chart": {
+        "kind": "line",
+        "title": "Stocks up, oil down — until Wednesday",
+        "note": "Rebased, Fri 18 Sep close = 0 · AP, ICE; S&P and Brent confirmed on FT",
+        "unit": "%",
+        "series": [
+          {
+            "name": "Nasdaq",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": 2.26
+              },
+              {
+                "t": "Tue",
+                "v": 2.72
+              },
+              {
+                "t": "Wed",
+                "v": 1.56
+              }
+            ]
+          },
+          {
+            "name": "S&P 500",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": 1.49
+              },
+              {
+                "t": "Tue",
+                "v": 1.49
+              },
+              {
+                "t": "Wed",
+                "v": 0.73
+              }
+            ]
+          },
+          {
+            "name": "Brent",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": -3.4
+              },
+              {
+                "t": "Tue",
+                "v": -4.45
+              },
+              {
+                "t": "Wed",
+                "v": -0.76
+              }
+            ]
+          }
+        ]
+      },
+      "notes": [
+        "Monday was the good day. The S&P was up one and a half per cent, and the Nasdaq more than two, to a record close.",
+        "That was an AI and chip rally — AMD up about ten per cent and through a trillion dollars in value, Meta up around eleven. Oil helped: Brent fell three and a half per cent as the Hormuz risk premium came out.",
+        "Watch the oil line — on Wednesday it turns back up, and the rally goes with it."
+      ],
+      "tape": [
+        {
+          "name": "S&P 500",
+          "chg": "+1.49%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "+2.26%"
+        },
+        {
+          "name": "Dow",
+          "chg": "+0.71%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-0.93%"
+        },
+        {
+          "name": "GDX",
+          "chg": "-1.10%"
+        },
+        {
+          "name": "Nifty 50",
+          "chg": "+0.29%"
+        },
+        {
+          "name": "MSCI EM",
+          "chg": "+1.34%"
+        },
+        {
+          "name": "Brent",
+          "chg": "-3.40%"
+        }
+      ],
+      "sources": [
+        "https://markets.ft.com/data/indices/tearsheet/historical?s=INX:IOM",
+        "https://wtop.com/national/2026/09/how-major-us-stock-indexes-fared-monday-9-21-2026",
+        "https://www.fool.com/coverage/stock-market-today/2026/09/21/stock-market-today-sept-21-tech-strength-powers-nasdaq-to-record-close/",
+        "https://markets.ft.com/data/commodities/tearsheet/historical?c=Brent+Crude+Oil"
+      ]
+    },
+    {
+      "key": "tuesday",
+      "label": "Tuesday",
+      "sub": "The miners",
+      "date": "Tue 22 Sep",
+      "region": "gold",
+      "state": "filed",
+      "mood": "bull",
+      "moodNote": "GDX +3.6% and the juniors +4.3% on a day gold itself slipped 0.2%.",
+      "headline": "Gold barely moved and the miners jumped 3.6% — that is what a beta of two looks like, and it works both ways.",
+      "stats": [
+        {
+          "label": "Gold miners (GDX)",
+          "value": "$97.83",
+          "chg": "+3.60%",
+          "note": "Juniors (GDXJ) +4.31%"
+        },
+        {
+          "label": "Gold, Dec futures",
+          "value": "$4,376",
+          "chg": "-0.17%"
+        },
+        {
+          "label": "Gold vs its record",
+          "value": "−22%",
+          "note": "Record $5,595 spot, January (Reuters)"
+        }
+      ],
+      "chart": {
+        "kind": "line",
+        "title": "The miners' beta, both ways",
+        "note": "Rebased, Fri 18 Sep close = 0 · COMEX Dec gold, GDX, GDXJ closes; GDX confirmed on FT",
+        "unit": "%",
+        "series": [
+          {
+            "name": "GDXJ",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": -1.41
+              },
+              {
+                "t": "Tue",
+                "v": 2.84
+              },
+              {
+                "t": "Wed",
+                "v": -2.54
+              }
+            ]
+          },
+          {
+            "name": "GDX",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": -1.1
+              },
+              {
+                "t": "Tue",
+                "v": 2.46
+              },
+              {
+                "t": "Wed",
+                "v": -2.01
+              }
+            ]
+          },
+          {
+            "name": "Gold (Dec)",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": -0.93
+              },
+              {
+                "t": "Tue",
+                "v": -1.1
+              },
+              {
+                "t": "Wed",
+                "v": -2.41
+              }
+            ]
+          }
+        ]
+      },
+      "notes": [
+        "If you own gold miners, Tuesday is the one to remember. Gold barely moved — down a fifth of a per cent. But GDX, the big miners ETF, was up three point six per cent, and the juniors more than four.",
+        "Then look at Wednesday on the chart: the same stocks gave it all back and more. That's the miners' beta — roughly twice the move in gold — working both ways.",
+        "And gold is still about twenty-two per cent below its January record, just under five thousand six hundred dollars."
+      ],
+      "tape": [
+        {
+          "name": "GDX",
+          "chg": "+3.60%"
+        },
+        {
+          "name": "GDXJ",
+          "chg": "+4.31%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-0.17%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "+0.45%"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "0.00%"
+        },
+        {
+          "name": "Nifty 50",
+          "chg": "-0.36%"
+        },
+        {
+          "name": "MSCI EM",
+          "chg": "+0.69%"
+        },
+        {
+          "name": "Brent",
+          "chg": "-1.09%"
+        }
+      ],
+      "sources": [
+        "https://finance.yahoo.com/quote/GC=F/history/",
+        "https://www.investing.com/commodities/gold-historical-data",
+        "https://finance.yahoo.com/quote/GDX/history/",
+        "https://www.investing.com/etfs/market-vectors-junior-gold-miners-historical-data",
+        "http://www.kitco.com/news/off-the-wire/2026-09-22/gold-eases-traders-cement-bets-higher-longer-interest-rates",
+        "https://www.tradingkey.com/news/market-movers/262181245-market-movers-aem-20260922"
+      ]
+    },
+    {
+      "key": "wednesday",
+      "label": "Wednesday",
+      "sub": "The hot print",
+      "date": "Wed 23 Sep",
+      "region": "us",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "PMI 58.4 against 56.0 expected; the 10-year up 15bp to 5.11%; GDX down 4.4%.",
+      "headline": "A red-hot US PMI sent the 10-year to 5.11%, its highest since 2007, and put an October hike firmly in play.",
+      "stats": [
+        {
+          "label": "US 10-year yield",
+          "value": "5.11%",
+          "chg": "+15bp",
+          "note": "Highest since 2007"
+        },
+        {
+          "label": "US flash composite PMI",
+          "value": "58.4",
+          "note": "56.0 expected · five-year high"
+        },
+        {
+          "label": "Gold miners (GDX)",
+          "value": "$93.56",
+          "chg": "-4.36%",
+          "note": "Kinross cuts output guidance after the close"
+        }
+      ],
+      "charts": [
+        {
+          "kind": "bars",
+          "title": "Flash composite PMI, September — points above 50",
+          "note": "S&P Global / HSBC flash, 22–24 Sep · 50 = no change on the month",
+          "unit": "",
+          "bars": [
+            {
+              "name": "United States",
+              "v": 8.4
+            },
+            {
+              "name": "India",
+              "v": 6.5
+            },
+            {
+              "name": "Euro area",
+              "v": 3.1
+            },
+            {
+              "name": "Japan",
+              "v": 2.5
+            },
+            {
+              "name": "United Kingdom",
+              "v": 1.7
+            },
+            {
+              "name": "Australia",
+              "v": 0.8
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "title": "US 10-year Treasury yield",
+          "note": "US Treasury, daily close",
+          "unit": "%",
+          "data": [
+            {
+              "t": "Fri",
+              "v": 5.01
+            },
+            {
+              "t": "Mon",
+              "v": 4.96
+            },
+            {
+              "t": "Tue",
+              "v": 4.96
+            },
+            {
+              "t": "Wed",
+              "v": 5.11
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Wednesday changed the week. The US flash PMI came in at fifty-eight point four against fifty-six expected — the strongest in five years, with input costs rising at the fastest pace since 2022.",
+        "The market read that as more hikes. The ten-year jumped fifteen basis points to five point one one per cent, its highest since 2007, and pricing moved to about a seventy per cent chance of an October hike.",
+        "Gold fell, the miners dropped more than four per cent, and Kinross cut its guidance after the close. And note India on the left — the strongest PMI outside the US."
+      ],
+      "tape": [
+        {
+          "name": "UST 10y",
+          "chg": "+15bp"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "-0.75%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "-1.13%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-1.33%"
+        },
+        {
+          "name": "GDX",
+          "chg": "-4.36%"
+        },
+        {
+          "name": "GDXJ",
+          "chg": "-5.23%"
+        },
+        {
+          "name": "MSCI EM",
+          "chg": "+0.16%"
+        },
+        {
+          "name": "Brent",
+          "chg": "+3.86%"
+        }
+      ],
+      "sources": [
+        "https://investinglive.com/news/us-september-s-p-global-flash-services-pmi-58-7-vs-56-0-expected/",
+        "https://www.fxstreet.com/news/indias-hsbc-manufacturing-pmi-climbs-to-557-in-september-202609230501",
+        "https://investinglive.com/news/eurozone-pmi-jumps-as-services-surge-price-pressures-keep-ecb-october-rate-hike-in-play/",
+        "https://investinglive.com/news/uk-september-flash-services-pmi-xx-vs-52-0-expected/",
+        "https://newsquawk.com/headlines/japanese-global-composite-pmi-flash-sep-525-prev-535",
+        "https://newsquawk.com/headlines/australian-sp-global-composite-pmi-flash-sep-508-prev-527",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202609",
+        "https://www.kitco.com/news/article/2026-09-23/gold-breaks-4300-fed-hike-odds-jump-after-pmi-kitco-pm-report",
+        "https://www.globenewswire.com/news-release/2026/09/23/3367874/0/en/kinross-provides-operational-and-return-of-capital-update.html",
+        "https://markets.ft.com/data/etfs/tearsheet/summary?s=GDX:PCQ:USD"
+      ]
+    },
+    {
+      "key": "thursday",
+      "label": "Thursday",
+      "sub": "Mumbai",
+      "date": "Thu 24 Sep",
+      "region": "india",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "Nifty −1.64% to a three-month low, with India VIX up 23% and the rupee at 95.96.",
+      "headline": "India gave back the week in a day: oil, US yields and a regulatory shock to insurers all landed at once.",
+      "stats": [
+        {
+          "label": "Nifty 50",
+          "value": "23,063",
+          "chg": "-1.64%",
+          "note": "Three-month low · confirmed on FT"
+        },
+        {
+          "label": "India VIX",
+          "value": "12.73",
+          "chg": "+22.9%"
+        },
+        {
+          "label": "PB Fintech",
+          "value": "₹1,207",
+          "chg": "-36%",
+          "note": "IRDAI draft on distribution costs"
+        }
+      ],
+      "charts": [
+        {
+          "kind": "line",
+          "title": "Nifty 50, daily close",
+          "note": "NSE · Thursday close confirmed on FT",
+          "unit": "",
+          "data": [
+            {
+              "t": "Fri",
+              "v": 23346.4
+            },
+            {
+              "t": "Mon",
+              "v": 23414.3
+            },
+            {
+              "t": "Tue",
+              "v": 23329.0
+            },
+            {
+              "t": "Wed",
+              "v": 23446.8
+            },
+            {
+              "t": "Thu",
+              "v": 23063.1
+            }
+          ]
+        },
+        {
+          "kind": "bars",
+          "title": "Who's buying India? Net flows, Mon–Wed",
+          "note": "NSE provisional data · ₹ crore",
+          "unit": "",
+          "bars": [
+            {
+              "name": "Domestic funds",
+              "v": 9259
+            },
+            {
+              "name": "Foreign investors",
+              "v": -2769
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Thursday was India's turn. The Nifty fell one point six per cent to a three-month low, and the Sensex lost more than twelve hundred points.",
+        "Two things hit at once. Brent back above a hundred and five dollars and US yields near a twenty-year high are a bad mix for an oil importer. And the insurance regulator published a draft capping distribution costs — PB Fintech, which owns Policybazaar, closed down thirty-six per cent.",
+        "The right-hand chart shows who's holding this market up: foreign investors sold nearly twenty-eight hundred crore from Monday to Wednesday, and domestic funds bought over nine thousand. The RBI meets on the seventh of October, and the market's now pricing a possible hike."
+      ],
+      "tape": [
+        {
+          "name": "Nifty 50",
+          "chg": "-1.64%"
+        },
+        {
+          "name": "Sensex",
+          "chg": "-1.67%"
+        },
+        {
+          "name": "Nifty Bank",
+          "chg": "-1.96%"
+        },
+        {
+          "name": "India VIX",
+          "chg": "+22.9%"
+        },
+        {
+          "name": "Hang Seng",
+          "chg": "-0.29%"
+        },
+        {
+          "name": "CSI 300",
+          "chg": "-1.73%"
+        },
+        {
+          "name": "TAIEX",
+          "chg": "-0.28%"
+        }
+      ],
+      "sources": [
+        "https://markets.ft.com/data/indices/tearsheet/summary?s=NIFTY:NSI",
+        "https://www.kotakneo.com/news/market-news/closing-bell-23-september-2026/",
+        "https://www.deccanchronicle.com/business/economics/sensex-crashes-1248-points-nifty-falls-below-23100-as-markets-hit-multi-month-low-1990200",
+        "https://hdfcsky.com/news/india-vix-surges-22-9percent-as-us-yields-crude-and-financial-stocks-drive-market-volatility-september-24-2026",
+        "https://www.businesstoday.in/markets/stocks/story/pb-fintech-shares-crack-26-after-irdai-consultation-paper-is-there-more-pain-ahead-557475-2026-09-24",
+        "https://www.kotakneo.com/share-market-today/fii-dii-data/",
+        "https://www.outlookbusiness.com/markets/rupee-plunges-23-paise-to-9596-against-us-dollar-amid-spike-in-crude-oil"
+      ]
+    },
+    {
+      "key": "friday",
+      "label": "Friday",
+      "sub": "Emerging markets",
+      "date": "Fri 25 Sep",
+      "region": "em",
+      "state": "pending",
+      "pendingLabel": "Friday's session to come",
+      "mood": "bull",
+      "moodNote": "Emerging markets outside China are up on the week on chips. What decides Friday is whether the US 10-year holds above 5% into the weekend.",
+      "headline": "Chips carried emerging markets — Taiwan at a record, Korea's exports booming — while China slipped on a short truce.",
+      "stats": [
+        {
+          "label": "Taiwan TAIEX",
+          "value": "48,157",
+          "chg": "+0.75%",
+          "note": "Record close, Wednesday"
+        },
+        {
+          "label": "Korea chip exports",
+          "value": "+259%",
+          "note": "Year on year, 1–20 September"
+        },
+        {
+          "label": "CSI 300",
+          "value": "4,439",
+          "chg": "-1.73%",
+          "note": "Thursday · truce extended only two months"
+        }
+      ],
+      "chart": {
+        "kind": "bars",
+        "title": "Emerging-market equities, Fri 18 Sep to latest close",
+        "note": "KOSPI and MSCI EM to Wed (Korea shut Thu for Chuseok); others to Thu",
+        "unit": "%",
+        "bars": [
+          {
+            "name": "KOSPI",
+            "v": 2.71
+          },
+          {
+            "name": "MSCI EM",
+            "v": 2.21
+          },
+          {
+            "name": "TAIEX",
+            "v": 1.79
+          },
+          {
+            "name": "Hang Seng",
+            "v": 0.04
+          },
+          {
+            "name": "Nifty 50",
+            "v": -1.21
+          },
+          {
+            "name": "CSI 300",
+            "v": -1.51
+          }
+        ]
+      },
+      "notes": [
+        "Across emerging markets, the week was about chips. Taiwan closed at a record on Wednesday, and Korea was up nearly three per cent before it shut for Chuseok — its chip exports so far this month are up more than two and a half times on a year ago.",
+        "China was the weak spot: the trade truce was extended by only two months, and the CSI 300 fell one point seven per cent on Thursday.",
+        "Today's US data is second-tier. The inflation number the Fed targets, PCE, isn't out until next Wednesday."
+      ],
+      "tape": [
+        {
+          "name": "KOSPI wk",
+          "chg": "+2.71%"
+        },
+        {
+          "name": "MSCI EM wk",
+          "chg": "+2.21%"
+        },
+        {
+          "name": "TAIEX wk",
+          "chg": "+1.79%"
+        },
+        {
+          "name": "Hang Seng wk",
+          "chg": "+0.04%"
+        },
+        {
+          "name": "Nifty wk",
+          "chg": "-1.21%"
+        },
+        {
+          "name": "CSI 300 wk",
+          "chg": "-1.51%"
+        }
+      ],
+      "sources": [
+        "https://focustaiwan.tw/business/202609230008",
+        "https://www.koreatimes.co.kr/economy/20260921/kospi-regains-7000-as-samsung-electronics-shares-surge-on-record-chip-exports",
+        "https://en.sedaily.com/finance/2026/09/18/kospi-closes-up-266-percent-at-689423",
+        "https://www.investing.com/indices/csi300-historical-data",
+        "https://www.investing.com/indices/msci-emerging-markets-historical-data",
+        "https://www.cnbc.com/2026/09/24/us-china-trade-truce-bessent-trump-xi.html",
+        "https://www.bea.gov/news/2026/personal-income-and-outlays-july-2026"
+      ]
+    },
+    {
+      "key": "close",
+      "label": "The Close",
+      "sub": "The scoreboard",
+      "date": "Fri 18 Sep → latest close",
+      "region": "global",
+      "state": "pending",
+      "pendingLabel": "Asia to Thursday · US to Wednesday",
+      "mood": "bear",
+      "moodNote": "Rates won the week: the miners, gold and India all fell; only the chip trade held up.",
+      "headline": "Higher for longer won the week. The AI trade held up, but gold, the miners and India all paid for a 5% ten-year.",
+      "scores": [
+        {
+          "name": "MSCI EM",
+          "pct": 2.2
+        },
+        {
+          "name": "TAIEX",
+          "pct": 1.8
+        },
+        {
+          "name": "Nasdaq",
+          "pct": 1.6
+        },
+        {
+          "name": "S&P 500",
+          "pct": 0.7
+        },
+        {
+          "name": "Nifty 50",
+          "pct": -1.2
+        },
+        {
+          "name": "CSI 300",
+          "pct": -1.5
+        },
+        {
+          "name": "Gold miners",
+          "pct": -2.0
+        },
+        {
+          "name": "Gold (Dec)",
+          "pct": -2.4
+        }
+      ],
+      "verdictNote": "These run to the latest close — Asia on Thursday, the US and gold on Wednesday. The scoreboard settles on Friday's close, and your call settles with it.",
+      "notes": [
+        "So here's the scoreboard, from last Friday to the latest close. The theme is higher for longer.",
+        "The miners are down two per cent, gold two and a half, India just over one. The strength was in the chip-heavy markets and the Nasdaq.",
+        "Friday's closes go in once we have them — but on our three themes, rates won this week. It's the bear."
+      ],
+      "tape": [
+        {
+          "name": "MSCI EM",
+          "chg": "+2.21%"
+        },
+        {
+          "name": "TAIEX",
+          "chg": "+1.79%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "+1.56%"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "+0.73%"
+        },
+        {
+          "name": "Nifty 50",
+          "chg": "-1.21%"
+        },
+        {
+          "name": "CSI 300",
+          "chg": "-1.51%"
+        },
+        {
+          "name": "GDX",
+          "chg": "-2.01%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-2.41%"
+        }
+      ],
+      "sources": [
+        "https://markets.ft.com/data/indices/tearsheet/historical?s=INX:IOM",
+        "https://abcnews.com/Business/wireStory/major-us-stock-indexes-fared-wednesday-9232026-136697299",
+        "https://markets.ft.com/data/indices/tearsheet/summary?s=NIFTY:NSI",
+        "https://www.investing.com/indices/msci-emerging-markets-historical-data",
+        "https://focustaiwan.tw/business/202609240010",
+        "https://finance.yahoo.com/quote/GDX/history/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,992 @@
+{
+  "_readme": "The deck's content. The ONLY file to edit. Rules: AGENTS.md. After editing: python src/rebuild.py",
+  "meta": {
+    "title": "The Deep Dive",
+    "subtitle": "Yields at 5%, a war and a trade truce — and what they are doing to portfolios",
+    "week": "21-25 Sep 2026",
+    "generated": "24 Sep 2026",
+    "source": "live",
+    "sourceLine": "Closes: FT, US Treasury, AP, ICE, EIA",
+    "presenter": "Catalin Bondari",
+    "questions": [
+      {
+        "ask": "Is 5% on the ten-year the top, or is there more to come?",
+        "facts": [
+          "16 of the Fed's 18 officials expect at least one more hike this year (Fed projections, 16 Sep).",
+          "The next Fed meeting is 27–28 October; markets put the odds of a hike there at about 66–69% (CME FedWatch via Yahoo and Trading Economics, 24 Sep).",
+          "Wednesday's $70bn five-year auction tailed 3.1bp, with the weakest bid-to-cover since December 2018 (investingLive; TFTC, 23 Sep).",
+          "The past year’s rise is almost all real yield: the 10-year TIPS yield went from 1.75% to 2.76% while inflation expectations stayed flat (US Treasury, FRED).",
+          "The 93bp is this calendar year (4.18% at the end of 2025 to 5.11%); over the twelve months to 23 Sep the rise is 99bp, the figure on the right-hand chart."
+        ]
+      },
+      {
+        "ask": "What would take the war premium out of oil?",
+        "facts": [
+          "Iran's proposal at the UN: a regionwide ceasefire of up to 60 days and a phased reopening of Hormuz, which it says could happen within seven days if its conditions are met (The National, Al Jazeera, 23 Sep).",
+          "President Trump: “I believe we’ll make a deal right after the election” — the US midterms are on 3 November (ABC News, 22 Sep).",
+          "The Gulf is exporting about 8–9m barrels a day through Hormuz and the Fujairah pipeline, against about 15m before the war (AP, 24 Sep).",
+          "Seven OPEC+ countries meet on 4 October (OPEC)."
+        ]
+      },
+      {
+        "ask": "What still diversifies a portfolio when stocks and bonds fall together?",
+        "facts": [
+          "On Wednesday a 60/40 fund (iShares AOR) fell about 1% as both halves fell (CNBC, 23 Sep).",
+          "This week gold fell 2.4% and long Treasuries 1.0% to Wednesday; the dollar index rose 0.9%.",
+          "Energy was the best S&P 500 sector in 2026 to the end of August, up 42% (Investing.com, 31 Aug), though it fell 3% this week.",
+          "Bond volatility (MOVE) jumped 18% this week to a three-month high while equity volatility (VIX) stayed near 15 (Saxo, 24 Sep)."
+        ]
+      }
+    ],
+    "sourcing": [
+      "Closing levels checked against FT Markets Data where FT publishes them: S&P 500, Nasdaq, Brent, the US 10-year, GDX, EEM and the Hang Seng.",
+      "Yields: US Treasury daily par and real yield curves, matched by FRED. Brent: ICE settlements via Investing.com and Yahoo; monthly history from the EIA.",
+      "Portfolio figures: AP index closes; ETF closes (TLT, AGG, AOR, sector SPDRs) from Yahoo and StockAnalysis; MOVE and VIX from Investing.com and Saxo.",
+      "The war: AP, Al Jazeera, ABC, RTÉ/Reuters. The summit: NBC, Fox News, Reuters, China’s commerce ministry. Inflation: BLS, BEA, Eurostat, the Fed.",
+      "US figures, oil and gold run to Wednesday’s close; China and Hong Kong to Thursday’s. Check the Friday readouts from the White House and Xinhua before presenting."
+    ]
+  },
+  "days": [
+    {
+      "key": "setup",
+      "label": "The set-up",
+      "rail": "The set-up",
+      "short": "Set-up",
+      "sub": "Three pressures",
+      "date": "Week of 21–25 Sep",
+      "region": "global",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "Three shocks, one channel — every one of them pushes yields higher.",
+      "headline": "A war in the Gulf, a two-month trade truce and a Fed hiking again — all three run through the same pipe: the US 10-year.",
+      "stats": [
+        {
+          "label": "US 10-year yield",
+          "value": "5.11%",
+          "chg": "+10bp",
+          "note": "Week to Wednesday · highest since 2007"
+        },
+        {
+          "label": "Brent crude",
+          "value": "$103.08",
+          "note": "$72.48 the day before the war began"
+        },
+        {
+          "label": "US–China truce",
+          "value": "10 Jan",
+          "note": "Extended two months, not the 3–6 hoped for"
+        }
+      ],
+      "chart": {
+        "kind": "bars",
+        "title": "Stocks held up; the hedges didn't",
+        "note": "Fri 18 → Wed 23 Sep closes · S&P and Brent confirmed on FT",
+        "unit": "%",
+        "bars": [
+          {
+            "name": "Nasdaq",
+            "v": 1.56
+          },
+          {
+            "name": "S&P 500",
+            "v": 0.73
+          },
+          {
+            "name": "Stoxx 600",
+            "v": 0.7
+          },
+          {
+            "name": "Bonds (AGG)",
+            "v": -0.57
+          },
+          {
+            "name": "Brent",
+            "v": -0.76
+          },
+          {
+            "name": "Long bonds",
+            "v": -0.97
+          },
+          {
+            "name": "Gold (Dec)",
+            "v": -2.41
+          }
+        ]
+      },
+      "notes": [
+        "Right — this week I want to go deep on one thing: why the US ten-year hit five per cent, and what that is doing to portfolios.",
+        "Three pressures landed at once: the war with Iran keeping Brent around a hundred dollars, a US–China truce extended by only two months, and a Fed raising rates again.",
+        "Look at the chart. Stocks held up — but bonds and gold, the things that normally protect a portfolio, both fell."
+      ],
+      "tape": [
+        {
+          "name": "Nasdaq",
+          "chg": "+1.56%"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "+0.73%"
+        },
+        {
+          "name": "Stoxx 600",
+          "chg": "+0.70%"
+        },
+        {
+          "name": "AGG",
+          "chg": "-0.57%"
+        },
+        {
+          "name": "TLT",
+          "chg": "-0.97%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-2.41%"
+        },
+        {
+          "name": "Brent",
+          "chg": "-0.76%"
+        },
+        {
+          "name": "DXY",
+          "chg": "+0.9%"
+        }
+      ],
+      "sources": [
+        "https://markets.ft.com/data/indices/tearsheet/historical?s=INX:IOM",
+        "https://wtop.com/national/2026/09/how-major-us-stock-indexes-fared-wednesday-9-23-2026",
+        "https://stockanalysis.com/etf/tlt/history/",
+        "https://stockanalysis.com/etf/agg/history/",
+        "https://www.investing.com/indices/stoxx-600-historical-data",
+        "https://finance.yahoo.com/quote/GC%3DF/history/",
+        "https://markets.ft.com/data/commodities/tearsheet/historical?c=Brent+Crude+Oil",
+        "https://finance.yahoo.com/quote/BZ%3DF/history/",
+        "https://www.nbcnews.com/business/economy/us-china-extend-trade-truce-trump-rcna599525"
+      ]
+    },
+    {
+      "key": "yields",
+      "label": "The 10-year",
+      "rail": "The 10-year",
+      "short": "10-yr",
+      "sub": "Five per cent",
+      "date": "Mon 21 – Wed 23 Sep",
+      "region": "us",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "The 10-year closed at 5.11% on Wednesday — up 93bp this year and 114bp from February’s low.",
+      "headline": "The 10-year hit 5.11%, its highest since 2007 — and almost all of the rise is real yield, not inflation fear.",
+      "stats": [
+        {
+          "label": "US 10-year yield",
+          "value": "5.11%",
+          "chg": "+15bp",
+          "note": "Wednesday · confirmed on FT"
+        },
+        {
+          "label": "10-year real yield",
+          "value": "2.76%",
+          "note": "1.75% a year ago (TIPS)"
+        },
+        {
+          "label": "5-year auction",
+          "value": "3.1bp tail",
+          "note": "Weakest demand since 2018"
+        }
+      ],
+      "charts": [
+        {
+          "kind": "line",
+          "title": "US 10-year yield, month-end",
+          "unit": "%",
+          "note": "Aug 2025 → 23 Sep 2026 · US Treasury, FRED · the low was 27 Feb, the day before the war",
+          "data": [
+            {
+              "t": "Aug",
+              "v": 4.23
+            },
+            {
+              "t": "Sep",
+              "v": 4.16
+            },
+            {
+              "t": "Oct",
+              "v": 4.11
+            },
+            {
+              "t": "Nov",
+              "v": 4.02
+            },
+            {
+              "t": "Dec",
+              "v": 4.18
+            },
+            {
+              "t": "Jan '26",
+              "v": 4.26
+            },
+            {
+              "t": "Feb",
+              "v": 3.97
+            },
+            {
+              "t": "Mar",
+              "v": 4.3
+            },
+            {
+              "t": "Apr",
+              "v": 4.4
+            },
+            {
+              "t": "May",
+              "v": 4.45
+            },
+            {
+              "t": "Jun",
+              "v": 4.44
+            },
+            {
+              "t": "Jul",
+              "v": 4.75
+            },
+            {
+              "t": "Aug",
+              "v": 4.75
+            },
+            {
+              "t": "Now",
+              "v": 5.11
+            }
+          ]
+        },
+        {
+          "kind": "bars",
+          "title": "Where the past year's rise came from",
+          "unit": "bp",
+          "note": "23 Sep 2025 → 23 Sep 2026 · breakeven = the inflation priced into bonds · US Treasury",
+          "bars": [
+            {
+              "name": "10-year yield",
+              "v": 99
+            },
+            {
+              "name": "Real yield",
+              "v": 101
+            },
+            {
+              "name": "Breakeven",
+              "v": -2
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The ten-year closed at five point one one per cent on Wednesday — the highest since 2007, and up ninety-three basis points this year.",
+        "The right-hand chart is the part people miss. The whole rise over the past year is real yield; inflation expectations haven't moved. Investors want more to lend to Washington — and Wednesday's five-year auction drew the weakest demand since 2018.",
+        "It's global, too: German ten-year yields are at their highest since 2009, and Japan's since 1996."
+      ],
+      "tape": [
+        {
+          "name": "UST 10y",
+          "chg": "5.11%"
+        },
+        {
+          "name": "UST 30y",
+          "chg": "5.40%"
+        },
+        {
+          "name": "TIPS 10y",
+          "chg": "2.76%"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "-0.75%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "-1.13%"
+        },
+        {
+          "name": "TLT",
+          "chg": "-1.58%"
+        },
+        {
+          "name": "MOVE",
+          "chg": "95.45"
+        }
+      ],
+      "sources": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026&page&_format=csv",
+        "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2025-08-25&coed=2026-09-24",
+        "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10&cosd=2025-08-25&coed=2026-09-24",
+        "https://markets.ft.com/data/bonds/tearsheet/summary?s=US10YT",
+        "https://investinglive.com/news/us-treasury-sells-70-billion-of-5-year-notes-at-a-high-yield-of-5-033/",
+        "https://tradingeconomics.com/germany/government-bond-yield",
+        "https://www.cnbc.com/2026/09/24/japan-jgb-bond-yield-treasurys.html",
+        "https://kesq.com/money/cnn-business-consumer/2026/09/23/10-year-treasury-yield-hits-5-1-for-first-time-in-19-years/",
+        "https://www.tftc.io/5-year-treasury-auction-5-percent-yield-second-biggest-tail-record"
+      ]
+    },
+    {
+      "key": "war",
+      "label": "The war",
+      "rail": "The war & oil",
+      "short": "Oil",
+      "sub": "Hormuz",
+      "date": "Since 28 Feb",
+      "region": "iran",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "The UN talks didn't deliver: Brent jumped 3.9% on Wednesday back above $103, and the Gulf still ships little more than half its pre-war oil.",
+      "headline": "Seven months into the war with Iran, the Gulf ships little more than half its pre-war oil — and every headline from the UN moves Brent by dollars.",
+      "stats": [
+        {
+          "label": "Brent crude",
+          "value": "$103.08",
+          "chg": "+3.86%",
+          "note": "Wednesday settle · confirmed on FT"
+        },
+        {
+          "label": "Gulf crude exports",
+          "value": "~8–9m b/d",
+          "note": "About 15m b/d before the war (AP)"
+        },
+        {
+          "label": "US diesel",
+          "value": "$6.51/gal",
+          "note": "24 Sep · record $6.53 on 22 Sep (AAA)"
+        }
+      ],
+      "charts": [
+        {
+          "kind": "line",
+          "title": "Brent, monthly average",
+          "unit": "$",
+          "note": "EIA spot, Sep 2025 → Aug 2026 · the war began on 28 Feb",
+          "data": [
+            {
+              "t": "Sep",
+              "v": 67.99
+            },
+            {
+              "t": "Oct",
+              "v": 64.54
+            },
+            {
+              "t": "Nov",
+              "v": 63.8
+            },
+            {
+              "t": "Dec",
+              "v": 62.54
+            },
+            {
+              "t": "Jan '26",
+              "v": 66.6
+            },
+            {
+              "t": "Feb",
+              "v": 70.89
+            },
+            {
+              "t": "Mar",
+              "v": 103.13
+            },
+            {
+              "t": "Apr",
+              "v": 117.29
+            },
+            {
+              "t": "May",
+              "v": 107.14
+            },
+            {
+              "t": "Jun",
+              "v": 85.4
+            },
+            {
+              "t": "Jul",
+              "v": 83.76
+            },
+            {
+              "t": "Aug",
+              "v": 91.08
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "title": "Brent this week",
+          "unit": "$",
+          "note": "ICE settlement, November contract · confirmed on FT",
+          "data": [
+            {
+              "t": "Fri",
+              "v": 103.87
+            },
+            {
+              "t": "Mon",
+              "v": 100.34
+            },
+            {
+              "t": "Tue",
+              "v": 99.25
+            },
+            {
+              "t": "Wed",
+              "v": 103.08
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Behind the yields is the war. Seven months in, the Gulf is exporting eight or nine million barrels a day — against fifteen before. Brent went from seventy-two dollars to a closing peak near a hundred and eighteen.",
+        "This week shows how headline-driven it is. Brent slipped below a hundred on hopes for the UN talks, then jumped almost four per cent on Wednesday when they didn't deliver.",
+        "Iran has floated a sixty-day ceasefire, and President Trump says a deal is likely after the midterms on the third of November."
+      ],
+      "tape": [
+        {
+          "name": "Brent",
+          "chg": "+3.86%"
+        },
+        {
+          "name": "WTI",
+          "chg": "+1.81%"
+        },
+        {
+          "name": "XLE",
+          "chg": "+0.96%"
+        },
+        {
+          "name": "BP",
+          "chg": "+2.8%"
+        },
+        {
+          "name": "Shell",
+          "chg": "+2.0%"
+        },
+        {
+          "name": "Ryanair",
+          "chg": "-1.1%"
+        }
+      ],
+      "sources": [
+        "https://news.usni.org/2026/02/28/u-s-israel-launch-operation-epic-fury-against-iran-tehran-retaliates-across-region",
+        "https://abcnews.com/International/wireStory/gulf-nations-found-ways-oil-flowing-iran-war-136708380",
+        "https://www.aljazeera.com/news/2026/9/23/us-iran-hold-mediated-unga-talks-on-ending-war-opening-strait-of-hormuz",
+        "https://abcnews.com/Politics/trump-addresses-global-leaders-united-nations-general-assembly/story?id=136648657",
+        "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M",
+        "https://www.investing.com/commodities/brent-oil-historical-data",
+        "https://markets.ft.com/data/commodities/tearsheet/historical?c=Brent+Crude+Oil",
+        "https://gasprices.aaa.com/",
+        "https://www.irishtimes.com/business/2026/09/23/european-shares-fall-as-oil-prices-and-interest-rate-expectations-climb/",
+        "https://www.thenationalnews.com/news/mena/2026/09/23/iran-us-meeting-new-york/"
+      ]
+    },
+    {
+      "key": "inflation",
+      "label": "Oil to rates",
+      "rail": "Oil → rates",
+      "short": "Infl.",
+      "sub": "The transmission",
+      "date": "Latest prints",
+      "region": "eu",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "Energy is running 16% above a year ago in the US and 14% in the euro area — and the Fed has started hiking again.",
+      "headline": "Oil is feeding straight into inflation on both sides of the Atlantic — which is why the Fed hiked, and why markets expect it to go again.",
+      "stats": [
+        {
+          "label": "US energy prices",
+          "value": "+16.3%",
+          "note": "Year on year, August (BLS)"
+        },
+        {
+          "label": "Euro-area inflation",
+          "value": "3.2%",
+          "note": "Energy adds 1.3 points (Eurostat)"
+        },
+        {
+          "label": "October hike odds",
+          "value": "66–69%",
+          "note": "CME FedWatch, 24 Sep · meeting 27–28 Oct"
+        }
+      ],
+      "chart": {
+        "kind": "bars",
+        "title": "Inflation against the 2% target",
+        "unit": "%",
+        "note": "Latest, % year on year · the Fed forecast is its 2026 PCE projection (16 Sep) · BLS, BEA, Eurostat",
+        "bars": [
+          {
+            "name": "US CPI (Aug)",
+            "v": 3.4
+          },
+          {
+            "name": "US PCE (Jul)",
+            "v": 3.7
+          },
+          {
+            "name": "EZ HICP (Aug)",
+            "v": 3.2
+          },
+          {
+            "name": "Fed forecast",
+            "v": 3.7
+          },
+          {
+            "name": "The target",
+            "v": 2.0
+          }
+        ]
+      },
+      "notes": [
+        "So how does a war become a five per cent yield? Through inflation. US energy prices are up sixteen per cent on a year ago, and petrol twenty-seven. In the euro area, energy adds more than a point to inflation.",
+        "Every bar is well above the two per cent target. That's why the Fed hiked on the sixteenth — and why markets put roughly two-in-three odds on another hike in late October."
+      ],
+      "tape": [
+        {
+          "name": "US CPI",
+          "chg": "3.4%"
+        },
+        {
+          "name": "Core CPI",
+          "chg": "2.4%"
+        },
+        {
+          "name": "US PCE",
+          "chg": "3.7%"
+        },
+        {
+          "name": "Euro HICP",
+          "chg": "3.2%"
+        },
+        {
+          "name": "Energy CPI",
+          "chg": "+16.3%"
+        },
+        {
+          "name": "Gasoline CPI",
+          "chg": "+27.4%"
+        }
+      ],
+      "sources": [
+        "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "https://www.bea.gov/news/2026/personal-income-and-outlays-july-2026",
+        "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-17092026-ap",
+        "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+        "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-24-dow-sp-500-nasdaq-080352893.html",
+        "https://tradingeconomics.com/united-states/government-bond-yield"
+      ]
+    },
+    {
+      "key": "china",
+      "label": "Xi and Trump",
+      "rail": "Xi & Trump",
+      "short": "China",
+      "sub": "A short truce",
+      "date": "Wed 23 – Fri 25 Sep",
+      "region": "china",
+      "state": "pending",
+      "pendingLabel": "Summit readouts due Friday",
+      "mood": "bull",
+      "moodNote": "The truce held and now runs past the midterms to 10 January, and the yuan fixing is its strongest since February 2023.",
+      "headline": "The summit kept the peace but bought only two months: the truce now runs to 10 January, short of the three to six months markets hoped for.",
+      "stats": [
+        {
+          "label": "Truce now ends",
+          "value": "10 Jan",
+          "note": "Was 10 Nov · Bessent, 23 Sep"
+        },
+        {
+          "label": "CSI 300",
+          "value": "4,439",
+          "chg": "-1.73%",
+          "note": "Thursday · down 1.5% on the week"
+        },
+        {
+          "label": "Yuan fixing",
+          "value": "6.7459",
+          "note": "Strongest since Feb 2023 (22 Sep)"
+        }
+      ],
+      "chart": {
+        "kind": "line",
+        "title": "China and Hong Kong stocks, rebased",
+        "unit": "%",
+        "note": "Fri 18 Sep close = 0 · MarketScreener, Xinhua, The Standard; Hang Seng confirmed on FT",
+        "series": [
+          {
+            "name": "Hang Seng",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": 1.18
+              },
+              {
+                "t": "Tue",
+                "v": 1.36
+              },
+              {
+                "t": "Wed",
+                "v": 0.34
+              },
+              {
+                "t": "Thu",
+                "v": 0.04
+              }
+            ]
+          },
+          {
+            "name": "CSI 300",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": 0.71
+              },
+              {
+                "t": "Tue",
+                "v": 0.83
+              },
+              {
+                "t": "Wed",
+                "v": 0.22
+              },
+              {
+                "t": "Thu",
+                "v": -1.51
+              }
+            ]
+          },
+          {
+            "name": "HS Tech",
+            "points": [
+              {
+                "t": "Fri",
+                "v": 0
+              },
+              {
+                "t": "Mon",
+                "v": 0.4
+              },
+              {
+                "t": "Tue",
+                "v": 0.74
+              },
+              {
+                "t": "Wed",
+                "v": -0.6
+              },
+              {
+                "t": "Thu",
+                "v": -1.01
+              }
+            ]
+          }
+        ]
+      },
+      "notes": [
+        "The other lever is China, and here the bull wins. Xi Jinping is in Washington, and the truce that was due to end on the tenth of November now runs to the tenth of January — past the midterms.",
+        "The yuan fixing is the strongest since early 2023.",
+        "The catch: two months is short of the three to six markets hoped for, and the CSI 300 gave back its rally. Mainland markets are shut today for the Mid-Autumn Festival, so the full verdict comes Monday."
+      ],
+      "tape": [
+        {
+          "name": "CSI 300",
+          "chg": "-1.73%"
+        },
+        {
+          "name": "Shanghai",
+          "chg": "-1.22%"
+        },
+        {
+          "name": "Hang Seng",
+          "chg": "-0.29%"
+        },
+        {
+          "name": "HS Tech",
+          "chg": "-0.41%"
+        },
+        {
+          "name": "Yuan fix",
+          "chg": "6.7459"
+        }
+      ],
+      "sources": [
+        "https://www.nbcnews.com/business/economy/us-china-extend-trade-truce-trump-rcna599525",
+        "https://www.fxstreet.com/news/us-treasury-secretary-bessent-says-us-china-trade-truce-extended-through-january-10-202609240003",
+        "https://www.thestandard.com.hk/finance/article/343703/US-China-agree-to-two-month-trade-truce-extension-below-6-month-hopes",
+        "https://theedgemalaysia.com/node/818806",
+        "https://www.marketscreener.com/quote/index/CSI-300-180586427/",
+        "https://www.marketscreener.com/quote/index/HONG-KONG-HANG-SENG-101835/",
+        "https://markets.ft.com/data/indices/tearsheet/summary?s=HSI:HKG",
+        "https://english.news.cn/20260924/74fe7052bcf947c1bba63cbb312b3081/c.html",
+        "https://www.brecorder.com/news/40440643/chinas-yuan-hits-3-12-year-high-as-pboc-extends-fixing-streak-ahead-of-xi-trump-meeting",
+        "https://investinglive.com/news/heads-up-china-markets-shut-friday-for-mid-autumn-festival-with-week-long-golden-week-break-ahead/"
+      ]
+    },
+    {
+      "key": "portfolios",
+      "label": "Portfolios",
+      "rail": "Portfolios",
+      "short": "Port.",
+      "sub": "Nowhere to hide",
+      "date": "Wed 23 Sep",
+      "region": "uk",
+      "state": "filed",
+      "mood": "bear",
+      "moodNote": "On Wednesday stocks and bonds fell together — a 60/40 fund lost about 1% in a day.",
+      "headline": "Wednesday is the day to remember: stocks, bonds and gold all fell together, and the usual hedges did not hedge.",
+      "stats": [
+        {
+          "label": "A 60/40 fund, Wednesday",
+          "value": "−0.97%",
+          "note": "iShares AOR · both halves fell"
+        },
+        {
+          "label": "Long Treasuries (TLT)",
+          "value": "$80.46",
+          "chg": "-1.58%",
+          "note": "A record-low close (Bloomberg)"
+        },
+        {
+          "label": "Bond volatility (MOVE)",
+          "value": "95.45",
+          "chg": "+18.4%",
+          "note": "Week to Wed · VIX stayed near 15"
+        }
+      ],
+      "charts": [
+        {
+          "kind": "bars",
+          "title": "Wednesday 23 Sep: everything fell",
+          "unit": "%",
+          "note": "Daily closes · AP, Yahoo, StockAnalysis",
+          "bars": [
+            {
+              "name": "S&P 500",
+              "v": -0.75
+            },
+            {
+              "name": "60/40 (AOR)",
+              "v": -0.97
+            },
+            {
+              "name": "Nasdaq",
+              "v": -1.13
+            },
+            {
+              "name": "Gold (Dec)",
+              "v": -1.33
+            },
+            {
+              "name": "Long bonds",
+              "v": -1.58
+            },
+            {
+              "name": "Utilities",
+              "v": -1.92
+            }
+          ]
+        },
+        {
+          "kind": "bars",
+          "title": "Sectors this week: AI up, rate-sensitives down",
+          "unit": "%",
+          "note": "S&P 500 sector SPDRs, Fri 18 → Wed 23 Sep",
+          "bars": [
+            {
+              "name": "Technology",
+              "v": 3.03
+            },
+            {
+              "name": "Communication",
+              "v": 1.58
+            },
+            {
+              "name": "Health care",
+              "v": 0.24
+            },
+            {
+              "name": "Real estate",
+              "v": -1.62
+            },
+            {
+              "name": "Financials",
+              "v": -2.36
+            },
+            {
+              "name": "Energy",
+              "v": -3.02
+            },
+            {
+              "name": "Utilities",
+              "v": -3.28
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Here is what it means for portfolios. On Wednesday, the day the ten-year jumped, stocks fell, long Treasuries fell one and a half per cent to a record low, and gold fell too. A sixty-forty fund lost about one per cent — both halves at once.",
+        "The right-hand chart shows who is paying: utilities, energy and financials down two to three per cent, while AI-led tech is still up.",
+        "The old hedge — bonds rallying when stocks fall — doesn't work while inflation is the problem."
+      ],
+      "tape": [
+        {
+          "name": "S&P 500",
+          "chg": "-0.75%"
+        },
+        {
+          "name": "Nasdaq",
+          "chg": "-1.13%"
+        },
+        {
+          "name": "TLT",
+          "chg": "-1.58%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-1.33%"
+        },
+        {
+          "name": "XLU",
+          "chg": "-1.92%"
+        },
+        {
+          "name": "AOR 60/40",
+          "chg": "-0.97%"
+        },
+        {
+          "name": "MOVE",
+          "chg": "95.45"
+        },
+        {
+          "name": "VIX",
+          "chg": "15.18"
+        }
+      ],
+      "sources": [
+        "https://abcnews.com/Business/wireStory/major-us-stock-indexes-fared-wednesday-9232026-136697299",
+        "https://stockanalysis.com/etf/aor/history/",
+        "https://stockanalysis.com/etf/tlt/history/",
+        "https://stockanalysis.com/etf/xlu/history/",
+        "https://stockanalysis.com/etf/xlk/history/",
+        "https://stockanalysis.com/etf/xle/history/",
+        "https://www.bloomberg.com/news/articles/2026-09-23/biggest-long-bond-etf-hits-record-low-as-traders-dump-treasuries",
+        "https://www.cnbc.com/2026/09/23/bonds-get-thumped-as-yields-surge-what-it-means-for-60/40-portfolio.html",
+        "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+        "https://www.home.saxo/en-mena/content/articles/options/yields-spiked-equity-vol-stayed-cheap---options-brief---24-september-2026-24092026",
+        "https://finance.yahoo.com/quote/GC%3DF/history/"
+      ]
+    },
+    {
+      "key": "close",
+      "label": "The Close",
+      "rail": "Scoreboard",
+      "short": "Close",
+      "sub": "What to watch",
+      "date": "Fri 18 Sep → latest close",
+      "region": "global",
+      "state": "pending",
+      "pendingLabel": "US to Wednesday · China to Thursday",
+      "mood": "bear",
+      "moodNote": "Rates won the week: bonds, gold and China fell; stocks, led by AI, held up.",
+      "headline": "Watch four dates: US inflation on 30 Sep, the Fed on 27–28 Oct, the midterms on 3 Nov, the truce on 10 Jan — and Hormuz.",
+      "verdictNote": "Closes run to Wednesday for the US and Thursday for China. The scoreboard settles on Friday's close — and so does your call.",
+      "scores": [
+        {
+          "name": "Nasdaq",
+          "pct": 1.6
+        },
+        {
+          "name": "EM (EEM)",
+          "pct": 1.0
+        },
+        {
+          "name": "S&P 500",
+          "pct": 0.7
+        },
+        {
+          "name": "Stoxx 600",
+          "pct": 0.7
+        },
+        {
+          "name": "Bonds (AGG)",
+          "pct": -0.6
+        },
+        {
+          "name": "Long bonds",
+          "pct": -1.0
+        },
+        {
+          "name": "CSI 300",
+          "pct": -1.5
+        },
+        {
+          "name": "Gold (Dec)",
+          "pct": -2.4
+        }
+      ],
+      "notes": [
+        "So, the scoreboard from last Friday to Wednesday's close. On the surface a quiet week — the Nasdaq and the S&P both up. Underneath, bonds, gold and China all down. If you called bear, rates proved you right.",
+        "What to watch: US inflation on the thirtieth, the Fed in late October, the midterms on the third of November, the truce deadline on the tenth of January — and any deal on Hormuz. Until one of those changes the story, the pressure on yields stays on."
+      ],
+      "tape": [
+        {
+          "name": "Nasdaq",
+          "chg": "+1.56%"
+        },
+        {
+          "name": "EM (EEM)",
+          "chg": "+1.01%"
+        },
+        {
+          "name": "S&P 500",
+          "chg": "+0.73%"
+        },
+        {
+          "name": "Stoxx 600",
+          "chg": "+0.70%"
+        },
+        {
+          "name": "Bonds (AGG)",
+          "chg": "-0.57%"
+        },
+        {
+          "name": "Long bonds",
+          "chg": "-0.97%"
+        },
+        {
+          "name": "CSI 300",
+          "chg": "-1.51%"
+        },
+        {
+          "name": "Gold (Dec)",
+          "chg": "-2.41%"
+        }
+      ],
+      "sources": [
+        "https://wtop.com/national/2026/09/how-major-us-stock-indexes-fared-wednesday-9-23-2026",
+        "https://markets.ft.com/data/indices/tearsheet/historical?s=INX:IOM",
+        "https://markets.ft.com/data/etfs/tearsheet/summary?s=EEM:PCQ:USD",
+        "https://www.investing.com/indices/stoxx-600-historical-data",
+        "https://stockanalysis.com/etf/agg/history/",
+        "https://stockanalysis.com/etf/tlt/history/",
+        "https://www.marketscreener.com/quote/index/CSI-300-180586427/",
+        "https://www.bea.gov/news/2026/personal-income-and-outlays-july-2026",
+        "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      ]
+    }
+  ]
+}
