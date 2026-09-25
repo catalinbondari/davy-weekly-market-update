@@ -186,7 +186,7 @@ them to the presenter during the talk.
 - Write for the ear: short sentences, one idea each, and numbers the way
   they're said ("one point six per cent", "twenty-eight hundred crore").
 - Say what the room can see first, then why it matters.
-- 70–100 words a slide, in two or three paragraphs. The whole talk should come
+- 90–130 words a slide, in two or three paragraphs. The whole talk should come
   in around 5½ minutes at 140 words a minute (about 770 words), so it still fits
   the six-minute clock with clicks. The validator warns over 5:35 and
   **fails over 5:45**.

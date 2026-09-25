@@ -34,7 +34,7 @@ CHG = re.compile(r'^[+\-−]?\d[\d,]*(\.\d+)?(%|bp)?$')
 WPM = 140                      # conversational presenting pace
 TALK_S = 360                   # the clock
 WARN_TOTAL_S, FAIL_TOTAL_S = 335, 345   # at 140 wpm; 345s still fits 6:00 at ~134 wpm with clicks
-WARN_SLIDE_WORDS = 110
+WARN_SLIDE_WORDS = 135
 # measured: a bar or scoreboard label longer than this is cut to '...' on a 1024px laptop
 LABEL_MAX = 14
 
@@ -138,7 +138,7 @@ def validate(data):
         wc = sum(words(t) for t in notes)
         total_words += wc
         if wc > WARN_SLIDE_WORDS:
-            warn(at, 'notes are %d words (~%s) - aim for 70-100 a slide' % (wc, mmss(wc / WPM * 60)))
+            warn(at, 'notes are %d words (~%s) - aim for 90-130 a slide' % (wc, mmss(wc / WPM * 60)))
 
         # sources
         src = d.get('sources')
