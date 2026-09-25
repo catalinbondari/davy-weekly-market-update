@@ -187,10 +187,10 @@ them to the presenter during the talk.
   they're said ("one point six per cent", "twenty-eight hundred crore").
 - Say what the room can see first, then why it matters.
 - 70–100 words a slide, in two or three paragraphs. The whole talk should come
-  in around 4¼ minutes at 140 words a minute (about 600 words), so it still fits
-  the five-minute clock at a slower delivery with clicks. The validator warns
-  over 4:15 and **fails over 4:30**.
-- The clock's pace marker gives each slide a share of the five minutes in
+  in around 5½ minutes at 140 words a minute (about 770 words), so it still fits
+  the six-minute clock with clicks. The validator warns over 5:35 and
+  **fails over 5:45**.
+- The clock's pace marker gives each slide a share of the six minutes in
   proportion to its word count.
 - Refer to the charts by position ("the left-hand chart"). On two-chart days
   the first chart is on the left.

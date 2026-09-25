@@ -130,7 +130,7 @@ and never appear on the slide.
   **Two charts** put the tiles in a row across the top and the charts side by side.
 - `chg` colours and arrows the tile: `+` up, `-` down, anything else neutral.
 - Keep `notes` to about **90 words a slide**. The whole talk should come in
-  around 4¼ minutes at a normal pace, leaving room for clicks inside the clock.
+  around 5½ minutes at a normal pace, leaving room for clicks inside the clock.
 - A pending day can say exactly what is still to come with
   `pendingLabel: "Friday's session to come"`, and the scorecard's settlement
   line can be set with `verdictNote`.
@@ -265,11 +265,11 @@ travel and nothing else, so don't use them to tell series apart.
 
 - **Click anywhere**, or `→` / `space`, to advance one beat.
 - `←` goes back a day, `1`–`7` jump straight to one, `R` restarts.
-- **The clock is five minutes**, top right. `P` pauses and resumes it, `0` resets it
-  to 5:00. Pausing also stops the ticker and the gallop, so a paused deck is
+- **The clock is six minutes**, top right. `P` pauses and resumes it, `0` resets it
+  to 6:00. Pausing also stops the ticker and the gallop, so a paused deck is
   completely still.
 - Under the digits: **On pace / Behind 0:14 / Ahead 0:20**. Each day owns an equal
-  slice of the five minutes and your progress through its beats says how much of
+  slice of the six minutes and your progress through its beats says how much of
   that slice should be spent, so the reading moves as you present rather than
   jumping a whole slide at a time. The tick on the bar is where you should be.
 - Keyboard: every control is reachable by tab, and a **Next beat** button appears at

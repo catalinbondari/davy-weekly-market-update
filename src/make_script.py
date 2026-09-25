@@ -85,7 +85,7 @@ def build(data, dest=ROOT):
     B(para([run('Weekly Market Update — your script', bold=True, size=24, color=INK, font=HEAD)], after=80))
     B(para([run('Week of %s  ·  Presented by %s' % (week, by), size=11, color=GREY, font=BODY)], after=240, border=CRIMSON))
     B(para([run('How to use this', bold=True, size=11, color=CRIMSON, font=BODY)], after=60, shade='F7F3EA'))
-    B(para([run('About %s of talking at a conversational pace, which leaves room for clicks inside the five-minute clock. '
+    B(para([run('About %s of talking at a conversational pace, which leaves room for clicks inside the six-minute clock. '
                 'Each slide shows three numbers and a chart; the words are all here, not on screen. '
                 'Read the numbers the room can see, then say why they matter. Cues in grey tell you when to click. '
                 'Press N in the deck to see this script on your own screen.' % mmss(total / WPM * 60),

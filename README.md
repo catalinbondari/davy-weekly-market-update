@@ -21,16 +21,16 @@ offline apart from the Google Fonts link.
 back a day, `1`–`7` jump straight to a day, `R` restarts. The deck deliberately
 *stops* at the scorecard so a stray click at the end can't wipe the screen.
 
-**The clock is five minutes**, top right. `P` pauses and resumes it, `0` resets it
-to 5:00, and the two buttons do the same thing with the mouse. Under the digits it
+**The clock is six minutes**, top right. `P` pauses and resumes it, `0` resets it
+to 6:00, and the two buttons do the same thing with the mouse. Under the digits it
 says *On pace*, *Behind 0:14* or *Ahead 0:20*: each day owns an equal slice of the
-five minutes, and how far you are through that day's beats says how much of its
+six minutes, and how far you are through that day's beats says how much of its
 slice should be gone. Pausing the clock also stops the ticker and the gallop, so a
 paused deck is completely still.
 
 **Your script** is `Davy-Weekly-Script-21-25-Sep-2026.docx` beside this file —
 running order, what to say on each slide, click cues, Q&A prep and sources, about
-about 4¼ minutes spoken, so it fits the five-minute clock with room for clicks. The same words are in the deck: press **N** (or the page icon
+about 5½ minutes spoken, so it fits the six-minute clock with room for clicks. The same words are in the deck: press **N** (or the page icon
 by the clock) to see the current slide's notes on your screen. Regenerate it after
 any edit with `python src/make_script.py`.
 

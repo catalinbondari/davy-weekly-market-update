@@ -484,7 +484,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
   .reveal{filter:none}
 }
 /* ── the clock ─────────────────────────────────────────── */
-/* The format is a five-minute talk, so the deck keeps the five minutes
+/* The format is a six-minute talk, so the deck keeps the six minutes
    itself. Three readings, in the order a presenter needs them: how long
    is left, whether this slide is running late, and a way to stop it. */
 .deckside{
@@ -792,8 +792,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
   <div class="deckside">
     <div class="timer" id="timer" data-state="idle" role="group" aria-label="Presentation timer">
       <div class="t-clock">
-        <span class="t-time" id="tTime" role="timer" aria-live="off">05:00</span>
-        <span class="t-pace" id="tPace">Five minutes</span>
+        <span class="t-time" id="tTime" role="timer" aria-live="off">06:00</span>
+        <span class="t-pace" id="tPace">Six minutes</span>
       </div>
       <div class="t-ctl">
         <button class="t-btn" id="tToggle" type="button" title="Pause the clock (P)" aria-label="Pause the clock">
@@ -802,7 +802,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
         <button class="t-btn" id="tNotes" type="button" title="Show your script (N)" aria-label="Show your script" aria-pressed="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h4"/></svg>
         </button>
-        <button class="t-btn" id="tReset" type="button" title="Reset the clock to five minutes (0)" aria-label="Reset the clock to five minutes">
+        <button class="t-btn" id="tReset" type="button" title="Reset the clock to six minutes (0)" aria-label="Reset the clock to six minutes">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>
         </button>
       </div>
@@ -893,7 +893,7 @@ const S = { i:0, r:0, kind:null, call:null, busy:false, started:false, world:nul
 /* The questions page. It is added here rather than written into the week's
    data because that data is rewritten every week - by hand or by a job - and
    a talk that forgets to hand over to the room is a worse talk. CONTENT is
-   the number of real days, which is what the five minutes is shared across;
+   the number of real days, which is what the six minutes is shared across;
    the questions page is time the room owns, not the presenter. */
 const CONTENT = WEEK.filter(d => d.kind !== 'questions').length;
 if(!WEEK.some(d => d.kind === 'questions')){
@@ -1041,13 +1041,13 @@ const moodMark = (k) => MOOD_MARK[k] || '';
 const moodWord = (k) => k === 'bull' ? 'Bull' : 'Bear';
 
 /* ── the clock ───────────────────────────────────────
-   Five minutes, exactly. Measured against the wall clock and never by
+   Six minutes, exactly. Measured against the wall clock and never by
    counting ticks: setInterval is throttled in a background tab and rAF
    stops dead in one, so a counter would quietly lose minutes while the
    deck sat on a second screen. Every paint recomputes from Date.now(),
    which is right however long the tab was hidden. */
-const TALK_MS   = 5 * 60 * 1000;
-/* Each slide owns a slice of the five minutes in proportion to how much
+const TALK_MS   = 6 * 60 * 1000;
+/* Each slide owns a slice of the six minutes in proportion to how much
    of the script is spoken over it, so a long slide isn't marked late. */
 const NOTE_WORDS = WEEK.slice(0, CONTENT).map(d =>
   [].concat(d.notes || []).join(' ').split(/\s+/).filter(Boolean).length || 1);
@@ -1057,7 +1057,7 @@ const slideShare = (i) => (NOTE_WORDS[i] || 0) / TOTAL_WORDS * TALK_MS;
 const T = { left: TALK_MS, end: 0, running: false };
 
 const timerEl = $('#timer');
-/* Counting down pads to 05:00 so the digits never change width; counting
+/* Counting down pads to 06:00 so the digits never change width; counting
    past zero drops the pad, because +0:12 is a sentence and +00:12 is a
    serial number. */
 const mmss = (ms) => {
@@ -1086,13 +1086,13 @@ function tStop(){
   T.running = false;
   tFace(); tPaint();
 }
-/* Reset means "run the five minutes again from here". If the clock was
+/* Reset means "run the six minutes again from here". If the clock was
    running it keeps running, because the only reason to press it mid-talk
    is that you have started over, not that you want to stop. */
 function tReset(){
   T.left = TALK_MS;
   if(T.running) T.end = Date.now() + TALK_MS;
-  say('Clock reset to five minutes');
+  say('Clock reset to six minutes');
   tPaint();
 }
 function tToggle(){ T.running ? tStop() : tStart(); }
@@ -1123,7 +1123,7 @@ function tPaint(){
   $('#tFill').style.width = (used * 100).toFixed(2) + '%';
 
   /* Where the clock should be right now: each slide owns its word-weighted
-     slice of the five minutes, and progress through the day's beats says how much
+     slice of the six minutes, and progress through the day's beats says how much
      of its slice should be spent. Fill short of the tick is time in hand;
      fill past it is time borrowed from the close. */
   const beats = lower.querySelectorAll('.reveal').length;
@@ -1134,7 +1134,7 @@ function tPaint(){
   const pace = $('#tPace');
   pace.classList.remove('behind', 'ahead');
   if(!S.started){
-    pace.textContent = 'Five minutes';
+    pace.textContent = 'Six minutes';
   } else if(WEEK[S.i] && WEEK[S.i].kind === 'questions'){
     pace.textContent = 'Over to the room';
   } else if(ms < 0){
@@ -1152,7 +1152,7 @@ function tPaint(){
     const spent = TALK_MS - ms;
     el.textContent = ms < 0
       ? 'Delivered in ' + gap(spent) + ' · ' + mmss(ms) + ' over'
-      : 'Delivered in ' + gap(spent) + ' of 5:00';
+      : 'Delivered in ' + gap(spent) + ' of 6:00';
   }
 }
 const say = (msg) => { const n = $('#say'); if(n) n.textContent = msg; };

@@ -5,7 +5,7 @@
     python src/validate.py --strict   # warnings fail too
 
 ERRORS are things that would break the page, draw a wrong chart, or run the
-talk past the five-minute clock. The build refuses to run while any exist.
+talk past the six-minute clock. The build refuses to run while any exist.
 WARNINGS are things a careful editor would want to look at: a tile that
 disagrees with the ticker, a slide whose script runs long, a day with no
 sources. They are printed, and the build goes ahead.
@@ -32,8 +32,8 @@ META_FIELDS = {'title', 'subtitle', 'week', 'generated', 'source', 'sourceLine',
 # a move or a level: +1.2%  -0.75%  +15bp  5.01%  0.00%  −1.64%  +22.9%  -36%
 CHG = re.compile(r'^[+\-−]?\d[\d,]*(\.\d+)?(%|bp)?$')
 WPM = 140                      # conversational presenting pace
-TALK_S = 300                   # the clock
-WARN_TOTAL_S, FAIL_TOTAL_S = 255, 270   # at 140 wpm; 270s still fits 5:00 at ~126 wpm with clicks
+TALK_S = 360                   # the clock
+WARN_TOTAL_S, FAIL_TOTAL_S = 335, 345   # at 140 wpm; 345s still fits 6:00 at ~134 wpm with clicks
 WARN_SLIDE_WORDS = 110
 # measured: a bar or scoreboard label longer than this is cut to '...' on a 1024px laptop
 LABEL_MAX = 14
@@ -209,9 +209,9 @@ def validate(data):
         warn('mood', 'every slide is a %s - set each slide\'s mood by its own topic' % moods.pop())
     secs = total_words / WPM * 60
     if secs > FAIL_TOTAL_S:
-        err('script', '%d words is ~%s spoken - over the five-minute clock. Trim the notes.' % (total_words, mmss(secs)))
+        err('script', '%d words is ~%s spoken - over the six-minute clock. Trim the notes.' % (total_words, mmss(secs)))
     elif secs > WARN_TOTAL_S:
-        warn('script', '%d words is ~%s spoken - leaves little room for clicks inside 5:00' % (total_words, mmss(secs)))
+        warn('script', '%d words is ~%s spoken - leaves little room for clicks inside 6:00' % (total_words, mmss(secs)))
     return E, W
 
 
